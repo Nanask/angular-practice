@@ -26,27 +26,35 @@ export class LayoutPage implements OnInit {
 
   updateTodo: string;
 
+  currentIndex = -1;
+
   constructor(private loadingController: LoadingController) {}
 
   // 라이프사이클
   // 타입스크립트는 확장팩 개념 ㅋㅋㅋ
 
   ngOnInit() {}
-  // todo데이터가 입력됐는지 확인한 코드
-  // changeHandler() {
-  //   console.log(this.todo);
-  // }
 
-  // 업데이트
-  update(i: number) {
-    this.todoList[i].todo = this.updateTodo;
+  update() {
+    this.todoList.map((todo, index) => {
+      if (index === this.currentIndex) {
+        todo.todo = this.updateTodo;
+        // this.isUpdate = false;
+        //  업데이트가 실행되고 나서 원래의 값을 지정해주기
+
+        this.currentIndex = -1;
+      }
+    });
+
+    this.todoList[this.currentIndex].todo = this.updateTodo;
     this.isUpdate = false;
   }
 
   // isUpdate가 true 일때
-  showUpdate(todo: string) {
+  showUpdate(todo: string, i: number) {
+    this.currentIndex = i;
     this.isUpdate = true;
-    this.updateTodo = todo;
+    // this.updateTodo = todo;
   }
 
   deleteHandler(id: number) {

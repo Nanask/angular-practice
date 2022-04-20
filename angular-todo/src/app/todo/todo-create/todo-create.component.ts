@@ -30,7 +30,9 @@ export class TodoCreateComponent implements OnInit {
         id: this.index,
         todo: this.todo,
       });
-      // console.log(this.todoList);
+      // input 값 초기화
+      this.todo = '';
+
       loading.dismiss();
     }, 1000);
   }
