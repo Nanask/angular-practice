@@ -35,35 +35,35 @@ export class LayoutPage implements OnInit {
 
   ngOnInit() {}
 
-  update() {
-    this.todoList.map((todo, index) => {
-      if (index === this.currentIndex) {
-        todo.todo = this.updateTodo;
-        // this.isUpdate = false;
-        //  업데이트가 실행되고 나서 원래의 값을 지정해주기
+  // update() {
+  //   this.todoList.map((todo, index) => {
+  //     if (index === this.currentIndex) {
+  //       todo.todo = this.updateTodo;
+  //       // this.isUpdate = false;
+  //       //  업데이트가 실행되고 나서 원래의 값을 지정해주기
 
-        this.currentIndex = -1;
-      }
-    });
+  //       this.currentIndex = -1;
+  //     }
+  //   });
 
-    this.todoList[this.currentIndex].todo = this.updateTodo;
-    this.isUpdate = false;
-  }
+  //   this.todoList[this.currentIndex].todo = this.updateTodo;
+  //   this.isUpdate = false;
+  // }
 
-  // isUpdate가 true 일때
-  showUpdate(todo: string, i: number) {
-    this.currentIndex = i;
-    this.isUpdate = true;
-    // this.updateTodo = todo;
-  }
+  // // isUpdate가 true 일때
+  // showUpdate(todo: string, i: number) {
+  //   this.currentIndex = i;
+  //   this.isUpdate = true;
+  //   // this.updateTodo = todo;
+  // }
 
-  deleteHandler(id: number) {
-    if (!confirm('정말 삭제하시겠습니까?')) {
-      return;
-    }
-    const _todoList = this.todoList.filter((todo) => {
-      return todo.id !== id;
-    });
-    this.todoList = _todoList;
-  }
+  // deleteHandler(id: number) {
+  //   if (!confirm('정말 삭제하시겠습니까?')) {
+  //     return;
+  //   }
+  //   const _todoList = this.todoList.filter((todo) => {
+  //     return todo.id !== id;
+  //   });
+  //   this.todoList = _todoList;
+  // }
 }

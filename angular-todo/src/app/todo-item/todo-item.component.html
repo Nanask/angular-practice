@@ -1,0 +1,23 @@
+<div
+  class="flex justify-between items-center shadow-md p-4 hover:bg-gray-100 transition-colors mt-2"
+  [ngClass]="isUpdate ? 'p-0' : 'p-4'"
+>
+  <!-- null 처리 -->
+  <div *ngIf="!isUpdate" (click)="showUpdate(todo?.todo)">
+    {{ todo?.todo }}
+  </div>
+  <input
+    class="outline-none w-full p-4"
+    [(ngModel)]="updateTodo"
+    *ngIf="isUpdate"
+    (keyup.enter)="update()"
+  />
+  <!-- 업데이트가 되지 않는 상황에서는 x가 보여야 하기 때문에 currentIndex !== i -->
+  <div
+    class="text-red-600 font-bold cursor-pointer"
+    (click)="deleteHandler(todo.id)"
+    *ngIf="!isUpdate"
+  >
+    X
+  </div>
+</div>

@@ -8,9 +8,11 @@ import { LayoutPageRoutingModule } from './layout-routing.module';
 
 import { LayoutPage } from './layout.page';
 import { TodoCreateComponent } from '../todo/todo-create/todo-create.component';
+import { TodoItemComponent } from './../todo-item/todo-item.component';
 
 // 여러개 component를 import하기위해 설정
-const todoComponent = [TodoCreateComponent];
+// todoItem을 분리해서 컴포넌트 연결
+const todoComponent = [TodoCreateComponent, TodoItemComponent];
 
 @NgModule({
   imports: [

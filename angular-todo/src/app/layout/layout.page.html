@@ -15,36 +15,10 @@
       <div class="bg-white p-6">
         <app-todo-create [todoList]="todoList"></app-todo-create>
         <div class="h-0.5 bg-gray-300 w-full my-6"></div>
-        <!-- 입력된 todoList가 있으면 내용 보여주기 -->
-        <!--[ngClass]로 isUpdate의 값에 따라 div에 class를 주는 것 -->
-        <ng-container *ngIf="todoList.length !==0">
-          <div
-            class="flex justify-between items-center shadow-md p-4 hover:bg-gray-100 transition-colors mt-2"
-            *ngFor="let todo of todoList ; index as i"
-            [ngClass]="currentIndex === i ? 'p-0' : 'p-4'"
-          >
-            <!-- isUpdate -->
-            <!-- [(ngModel)]="updateTodo" 양방향바인딩 -->
-            <div *ngIf="currentIndex !== i" (click)="showUpdate(todo.todo, i)">
-              {{todo.todo}}
-            </div>
-            <input
-              class="outline-none w-full p-4"
-              [(ngModel)]="updateTodo"
-              *ngIf="currentIndex === i"
-              (keyup.enter)="update()"
-            />
-            <!-- 업데이트가 되지 않는 상황에서는 x가 보여야 하기 때문에 currentIndex !== i -->
-            <div
-              class="text-red-600 font-bold cursor-pointer"
-              (click)="deleteHandler(todo.id)"
-              *ngIf="currentIndex !== i"
-            >
-              X
-            </div>
-          </div>
+        <ng-container *ngFor="let todo of todoList; index as i">
+          <app-todo-item [todoList]="todoList" [todo]="todo"></app-todo-item>
         </ng-container>
-        <!-- 사용자에게 어떤 상태인지 알려주는 것, 입력된 List가 없으면 내용이 뜨게 하기 -->
+
         <div
           class="text-lg text-gray-300 w-full text-center"
           *ngIf="todoList.length === 0"
