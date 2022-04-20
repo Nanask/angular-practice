@@ -32,6 +32,8 @@ export class TodoCreateComponent implements OnInit {
       });
       // input 값 초기화
       this.todo = '';
+      // todoList를 받으면 array로 나오기때문에 파싱해서 텍스트로 변경해주기
+      localStorage.setItem('todoList', JSON.stringify(this.todoList));
 
       loading.dismiss();
     }, 1000);

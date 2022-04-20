@@ -2,9 +2,17 @@
   <div class="p-4 text-3xl font-bold shadow-md w-full">
     <div>Angular Todo List</div>
   </div>
+  <ion-segment [(ngModel)]="selected">
+    <ion-segment-button class="font-bold text-lg" value="doing"
+      >할 일</ion-segment-button
+    >
+    <ion-segment-button class="font-bold text-lg" value="complete"
+      >완료된 일</ion-segment-button
+    >
+  </ion-segment>
 </ion-header>
 <!-- 모바일 버전에서 header와 footer를 제외한 가운데부분 -->
-<ion-content>
+<ion-content *ngIf="selected === 'doing'">
   <div class="mt-10 flex justify-center w-full text-gray-700">
     <div
       class="rounded-lg p-6 w-[70%] px-0 border-2 border-gray-200 bg-orange-300"
@@ -16,9 +24,12 @@
         <app-todo-create [todoList]="todoList"></app-todo-create>
         <div class="h-0.5 bg-gray-300 w-full my-6"></div>
         <ng-container *ngFor="let todo of todoList; index as i">
-          <app-todo-item [todoList]="todoList" [todo]="todo"></app-todo-item>
+          <app-todo-item
+            [todoList]="todoList"
+            [todo]="todo"
+            (todoDelete)="delete($event)"
+          ></app-todo-item>
         </ng-container>
-
         <div
           class="text-lg text-gray-300 w-full text-center"
           *ngIf="todoList.length === 0"
@@ -28,4 +39,8 @@
       </div>
     </div>
   </div>
+</ion-content>
+<ion-content *ngIf="selected === 'complete'">
+  <!-- <div>완료된 일</div> -->
+  <app-complete-todo></app-complete-todo>
 </ion-content>

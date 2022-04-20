@@ -9,6 +9,7 @@ import { LayoutPageRoutingModule } from './layout-routing.module';
 import { LayoutPage } from './layout.page';
 import { TodoCreateComponent } from '../todo/todo-create/todo-create.component';
 import { TodoItemComponent } from './../todo-item/todo-item.component';
+import { CompleteTodoPageModule } from './../complete-todo/complete-todo.module';
 
 // 여러개 component를 import하기위해 설정
 // todoItem을 분리해서 컴포넌트 연결
@@ -20,6 +21,7 @@ const todoComponent = [TodoCreateComponent, TodoItemComponent];
     CommonModule,
     FormsModule,
     IonicModule,
+    CompleteTodoPageModule,
     LayoutPageRoutingModule,
   ],
   // 모듈과 layout HTML을 연결해줌
