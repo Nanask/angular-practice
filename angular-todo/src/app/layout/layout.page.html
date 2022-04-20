@@ -1,9 +1,54 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>layout</ion-title>
-  </ion-toolbar>
+  <div class="p-4 text-3xl font-bold shadow-md w-full">
+    <div>Angular Todo List</div>
+  </div>
 </ion-header>
 <!-- 모바일 버전에서 header와 footer를 제외한 가운데부분 -->
 <ion-content>
-  <div class="h-96 text-4xl bg-slate-400">text</div>
+  <div class="mt-10 flex justify-center w-full text-gray-700">
+    <div
+      class="rounded-lg p-6 w-[70%] px-0 border-2 border-gray-200 bg-orange-300"
+    >
+      <div class="flex justify-center text-4xl pb-4 shadow-md text-white">
+        TODO List
+      </div>
+      <div class="bg-white p-6">
+        <app-todo-create [todoList]="todoList"></app-todo-create>
+        <div class="h-0.5 bg-gray-300 w-full my-6"></div>
+        <!-- 입력된 todoList가 있으면 내용 보여주기 -->
+        <ng-container *ngIf="todoList.length !==0">
+          <div
+            class="flex justify-between items-center shadow-md p-4 hover:bg-gray-100 transition-colors"
+            *ngFor="let todo of todoList ; index as i"
+            [ngClass]="isUpdate ? 'p-0' : 'p-4'"
+          >
+            <!-- isUpdate -->
+            <div *ngIf="!isUpdate" (click)="showUpdate(todo.todo)">
+              {{todo.todo}}
+            </div>
+            <input
+              class="outline-none w-full p-4"
+              [(ngModel)]="updateTodo"
+              *ngIf="isUpdate"
+              (keyup.enter)="update(i)"
+            />
+            <div
+              class="text-red-600 font-bold"
+              (click)="deleteHandler(todo.id)"
+              *ngIf="!isUpdate"
+            >
+              X
+            </div>
+          </div>
+        </ng-container>
+        <!-- 사용자에게 어떤 상태인지 알려주는 것, 입력된 List가 없으면 내용이 뜨게 하기 -->
+        <div
+          class="text-lg text-gray-300 w-full text-center"
+          *ngIf="todoList.length === 0"
+        >
+          입력된 할 일이 없습니다.
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>

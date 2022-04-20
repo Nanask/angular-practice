@@ -1,0 +1,17 @@
+<div class="flex space-x-2 w-full">
+  <!-- (ngModelChange)="changeHandler()" ngModelChange ngModel값이 바뀔때마다(todo텍스트) -->
+  <!-- (keyup.enter)="enterHandler()" 엔터를 치면 입력되게 하기 -->
+  <!-- [(ngModel)]="todo" input value 데이터 바인딩-->
+  <input
+    class="border-2 w-full p-4 py-2 outline-none focus:border-orange-300 transition-colors"
+    placeholder="할 일을 입력하세요"
+    [(ngModel)]="todo"
+    (keyup.enter)="enterHandler()"
+  />
+  <div
+    class="flex justify-center hover: cursor-pointer hover:bg-orange-200 p-4 py-2 bg-orange-300 rounded-md hover:transition-colors text-white"
+    (click)="enterHandler()"
+  >
+    enter
+  </div>
+</div>
