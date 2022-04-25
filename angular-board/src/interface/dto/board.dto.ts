@@ -4,5 +4,5 @@ export interface IBoardDTO {
   writer: string;
   content: string;
   tag: string;
-  createAt: string;
+  createdAt: string;
 }
