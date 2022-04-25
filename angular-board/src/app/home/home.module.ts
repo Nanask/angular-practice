@@ -5,9 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { BoardComponent } from './../board/board.component';
 import { HomePageRoutingModule } from './home-routing.module';
+import { DatePipe } from 'src/pipe/date.pipe';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule],
-  declarations: [HomePage, BoardComponent],
+  declarations: [HomePage, BoardComponent, DatePipe],
 })
 export class HomePageModule {}

@@ -14,6 +14,7 @@ export class BoardComponent implements OnInit {
 
   ngOnInit() {
     this.boardlist = [];
+
     this.boardService.findAll().subscribe((res) => {
       if (res) {
         const _boardlist = res;

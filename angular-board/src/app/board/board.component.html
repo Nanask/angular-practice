@@ -21,7 +21,8 @@
         >
           {{ board?.tag }}
         </div>
-        <div class="text-sm">{{ board?.createdAt }}</div>
+
+        <div class="text-sm">{{ board?.createdAt | customDate }}</div>
       </div>
     </div>
   </div>
