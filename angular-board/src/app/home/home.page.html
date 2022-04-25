@@ -1,0 +1,46 @@
+<ion-header>
+  <div class="flex justify-between items-center p-4">
+    <div class="p-4 text-lg font-bold">
+      {{ nickname ? nickname+".log" : "닉네임을 입력하세요" }}
+    </div>
+    <div class="flex space-x-2">
+      <div
+        class="flex items-center rounded-full border-2 border-gray-400 w-max px-2 py-1 cursor-pointer"
+        (click)="showCreate()"
+      >
+        새 글 작성
+      </div>
+      <!-- <div class="flex items-center">
+        <ion-icon
+          class="w-12 h-12"
+          src="assets\icon\brightness_2_FILL0_wght400_GRAD0_opsz48.svg"
+        ></ion-icon>
+        <ion-icon
+          class="w-12 h-12"
+          src="assets\icon\light_mode_FILL0_wght400_GRAD0_opsz48.svg"
+        ></ion-icon>
+      </div> -->
+    </div>
+  </div>
+</ion-header>
+<ion-content>
+  <div class="mt-5 p-6 h-full">
+    <div class="flex justify-center items-center h-full" *ngIf="!nickname">
+      <input
+        class="border-2 border-gray-700 outline-none select-none p-4 text-lg w-2/4 rounded-md font-bold focus:border-indigo-200 transition-colors"
+        placeholder="닉네임을 입력해주세요"
+        (keyup.enter)="handleNickname($event.target)"
+      />
+    </div>
+    <ng-container *ngIf="nickname">
+      <ion-segment [(ngModel)]="segmentValue">
+        <ion-segment-button value="board">글</ion-segment-button>
+        <ion-segment-button value="introduce">소개</ion-segment-button>
+      </ion-segment>
+      <app-board *ngIf="segmentValue === 'board'"></app-board>
+      <!-- <div class="" *ngIf="segmentValue === 'board'">
+      </div> -->
+      <div *ngIf="segmentValue === 'introduce'"></div>
+    </ng-container>
+  </div>
+</ion-content>

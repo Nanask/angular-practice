@@ -1,0 +1,42 @@
+<ion-header>
+  <div class="p-4 text-lg font-bold">새 글 작성</div>
+</ion-header>
+<ion-content>
+  <form [formGroup]="createForm" class="flex flex-col justify-between h-full">
+    <div class="p-4 text-gray-700">
+      <div>
+        <input
+          formControlName="title"
+          class="font-bold text-3xl p-4 outline-none select-none"
+          placeholder="제목을 입력하세요."
+        />
+      </div>
+      <div class="h-2 bg-gray-300 w-1/12 mx-4"></div>
+      <div class="border-b-2 border-gray-200">
+        <input
+          formControlName="tag"
+          class="font-bold text-xl p-4 outline-none select-none"
+          placeholder="태그를 입력하세요."
+        />
+      </div>
+      <div class="p-4">
+        <textarea
+          formControlName="content"
+          class="resize-none outline-none w-full"
+          placeholder="내용을 입력하세요."
+        ></textarea>
+      </div>
+    </div>
+    <div
+      class="flex items-center justify-between p-4 text-white text-lg bg-gray-700"
+    >
+      <div class="cursor-pointer" (click)="exit()">나가기</div>
+      <div
+        class="cursor-pointer bg-gray-600 rounded px-2 py-1"
+        (click)="submit()"
+      >
+        출간하기
+      </div>
+    </div>
+  </form>
+</ion-content>
