@@ -1,0 +1,42 @@
+<div class="space-y-2">
+  <div class="p-4 space-x-2 border-sky-200 border-2">
+    <input
+      class="outline-none"
+      placeholder="할 일을 작성해주세요."
+      [(ngModel)]="todo"
+    />
+    <button
+      class="outline-none border-none px-3 text-blue-300"
+      (click)="enterHandler()"
+    >
+      ADD
+    </button>
+  </div>
+  <div class="border-sky-200 border-2 px-2 py-3">
+    <ng-container *ngIf="todoList.length !== 0">
+      <div
+        *ngFor="let todo of todoList; index"
+        class="border-b-2 border-sky-200 p-2 flex"
+        [ngClass]="isUpdate ? 'bg-gray-400' : 'bg-red-300'"
+      >
+        {{ todo.todo }}
+
+        <div class="flex justify-end ml-auto space-x-3">
+          <input
+            *ngIf="!isUpdate ? 'hidden' : 'outline-none'"
+            [(ngModel)]="updateTodo"
+          />
+          <div class="hover:cursor-pointer" (click)="showUpdate(todo.todo)">
+            <fa-icon [icon]="faPan"></fa-icon>
+          </div>
+          <div
+            class="text-red-700 flex justify-end ml-auto hover:cursor-pointer font-bold"
+          >
+            X
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div *ngIf="todoList.length === 0" class="">입력된 할 일이 없습니다.</div>
+  </div>
+</div>
