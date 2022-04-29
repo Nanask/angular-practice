@@ -1,0 +1,39 @@
+<div
+  class="flex justify-between items-center shadow-md p-2 mt-2 w-full flex-col"
+  [ngClass]="isUpdate ? 'p-0' : 'p-4'"
+>
+  <div class="flex justify-between w-full">
+    <div
+      *ngIf="!isUpdate"
+      (click)="todoCheck()"
+      [ngClass]="
+        !check
+          ? ''
+          : 'line-through decoration-red-400 decoration-2 text-gray-400 '
+      "
+    >
+      {{ todo?.todo }}
+    </div>
+    <input
+      class="outline-none p-4 w-full"
+      [(ngModel)]="updateTodo"
+      *ngIf="isUpdate"
+      (keyup.enter)="update()"
+    />
+    <div class="flex space-x-3 items-center">
+      <fa-icon
+        class="hover:cursor-pointer"
+        (click)="showUpdate(todo?.todo)"
+        [icon]="faPan"
+        *ngIf="!isUpdate"
+      ></fa-icon>
+      <div
+        class="text-red-600 font-bold cursor-pointer"
+        [ngClass]="!isUpdate ? 'p-0' : 'p-2'"
+        (click)="deleteHandler(todo.id)"
+      >
+        X
+      </div>
+    </div>
+  </div>
+</div>

@@ -12,18 +12,15 @@ export class TodoCreateComponent implements OnInit {
   @Input() todoList: ITodoDTO[];
   index = 0;
   todo: string;
-  faPan = faPen;
-  isUpdate = false;
-  updateTodo: string;
 
   constructor(private loadingContriller: LoadingController) {}
 
   ngOnInit() {}
 
   async enterHandler() {
-    // const loadding = await this.loadingContriller.create();
+    const loading = await this.loadingContriller.create();
 
-    // loadding.present();
+    // loading.present();
 
     // setTimeout(() => {
     this.index += 1;
@@ -33,14 +30,7 @@ export class TodoCreateComponent implements OnInit {
     });
     console.log(this.index);
     console.log(this.todo);
+    this.todo = '';
     // });
   }
-
-  showUpdate(todo: string) {
-    this.isUpdate = true;
-    this.updateTodo = todo;
-    console.log('todo', todo);
-  }
-
-  Delete() {}
 }
