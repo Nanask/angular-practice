@@ -1,0 +1,57 @@
+<ion-content>
+  <div class="p-4 pt-6 text-gray-700">
+    <div class="font-extrabold text-3xl mb-2">{{ board?.title }}</div>
+    <div class="flex justify-between mb-2">
+      <div class="flex space-x-4 items-center">
+        <div class="font-bold">{{ board?.writer }}</div>
+        <div class="text-sm">{{ board?.createdAt | customDate }}</div>
+      </div>
+      <div class="flex space-x-2">
+        <div class="cursor-pointer">수정</div>
+        <div class="cursor-pointer">삭제</div>
+      </div>
+    </div>
+    <div
+      class="text-green-600 bg-gray-100 w-max h-max px-2 py-1 rounded-full mb-2"
+    >
+      {{ board?.tag }}
+    </div>
+    <div class="py-4 border-gray-300 border-b-2">{{ board?.content }}</div>
+  </div>
+  <form class="p-4" [formGroup]="commentForm">
+    <div class="font-bold text-lg pb-4">{{ comments?.length }} 개의 댓글</div>
+    <input
+      formControlName="writer"
+      class="font-bold text-gray-700 border-gray-200 outline-none"
+    />
+    <textarea
+      formControlName="content"
+      class="outline-none w-full border-gray-200 border resize-none p-3 rounded-sm"
+      placeholder="댓글을 작성하세요"
+    ></textarea>
+    <div class="w-full flex justify-end">
+      <div
+        class="text-white bg-teal-400 w-max h-max px-2 py-1 rounded-sm"
+        (click)="submit()"
+      >
+        댓글 작성
+      </div>
+    </div>
+  </form>
+  <div
+    class="p-4 pt-6 border-gray-100 border-t mx-4"
+    *ngFor="let comment of comments"
+  >
+    <div class="justify-between flex w-full">
+      <div>
+        <div>{{ comment?.writer }}</div>
+        <div class="text-gray-500 text-sm">{{ comment?.createdAt }}</div>
+      </div>
+      <div class="flex text-sm space-x-2">
+        <div class="cursor-pointer">수정</div>
+        <div class="cursor-pointer">삭제</div>
+      </div>
+    </div>
+    <div class="text-gray-700 pt-4">{{ comment?.content }}</div>
+  </div>
+</ion-content>

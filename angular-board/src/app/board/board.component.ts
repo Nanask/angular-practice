@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { IBoardDTO } from 'src/interface/dto/board.dto';
 import { BoardService } from './../../api/board/board.service';
+import { BoardDetailComponent } from './../board-detail/board-detail.component';
 
 @Component({
   selector: 'app-board',
@@ -10,7 +12,10 @@ import { BoardService } from './../../api/board/board.service';
 export class BoardComponent implements OnInit {
   boardlist: IBoardDTO[];
 
-  constructor(private boardService: BoardService) {}
+  constructor(
+    private boardService: BoardService,
+    private modalController: ModalController
+  ) {}
 
   ngOnInit() {
     this.boardlist = [];
@@ -24,5 +29,15 @@ export class BoardComponent implements OnInit {
         });
       }
     });
+  }
+
+  async showDetail(board: IBoardDTO) {
+    const modal = await this.modalController.create({
+      component: BoardDetailComponent,
+      componentProps: { board },
+      cssClass: 'detail-modal',
+    });
+
+    modal.present();
   }
 }

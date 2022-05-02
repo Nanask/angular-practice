@@ -12,7 +12,7 @@ export class BoardService {
 
   serverUrl = `${environment.server}`;
 
-  //api method
+  // api method
 
   // findAll은 배열로 받기 때문에 []
   findAll(): Observable<IBoardDTO[]> {
