@@ -3,6 +3,9 @@ import { IBoardDTO } from 'src/interface/dto/board.dto';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommnetService } from 'src/api/comment/commnet.service';
 import { ICommentDTO } from './../../interface/dto/comment.dto';
+import { BoardService } from './../../api/board/board.service';
+import { Router } from '@angular/router';
+import { AlertController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-board-detail',
@@ -20,7 +23,13 @@ export class BoardDetailComponent implements OnInit {
 
   @Input() board: IBoardDTO;
 
-  constructor(private commentService: CommnetService) {}
+  constructor(
+    private commentService: CommnetService,
+    private boardService: BoardService,
+    private router: Router,
+    private alertController: AlertController,
+    private modalController: ModalController
+  ) {}
 
   comments: ICommentDTO[];
 
@@ -49,5 +58,26 @@ export class BoardDetailComponent implements OnInit {
     this.commentService.create(body).subscribe((res) => {
       this.getComments();
     });
+  }
+
+  async update() {
+    const alert = await this.alertController.create({
+      header: '업데이트',
+      message: '게시글을 수정하시겠습니까?',
+      buttons: [
+        {
+          text: '확인',
+          handler: () => {
+            this.router.navigateByUrl(`regist/${this.board?.seq}`);
+            this.modalController.dismiss();
+          },
+        },
+        {
+          text: '취소',
+        },
+      ],
+    });
+
+    alert.present();
   }
 }

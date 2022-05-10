@@ -25,8 +25,8 @@ export class BoardService {
   create(body: IBoardDTO): Observable<string> {
     return this.httpClient.post<string>(this.serverUrl, body);
   }
-  update(body: IBoardDTO): Observable<string> {
-    return this.httpClient.put<string>(this.serverUrl, body);
+  update(body: IBoardDTO, seq: number): Observable<string> {
+    return this.httpClient.put<string>(`${this.serverUrl}/${seq}`, body);
   }
   delete(seq: number): Observable<string> {
     return this.httpClient.delete<string>(`${this.serverUrl}/${seq}`);

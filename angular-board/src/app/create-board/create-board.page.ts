@@ -1,10 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ToastColorType, ToastService } from '../service/toast.service';
 import { BoardService } from './../../api/board/board.service';
+import { IBoardDTO } from 'src/interface/dto/board.dto';
 
 @Component({
   selector: 'app-create-board',
@@ -12,6 +13,9 @@ import { BoardService } from './../../api/board/board.service';
   styleUrls: ['./create-board.page.scss'],
 })
 export class CreateBoardPage implements OnInit {
+  seq: number;
+
+  isUpdate = false;
   // const nickname = localStorage.getItem('nickname');
   // @Input() name = localStorage.getItem('nickname');
 
@@ -29,10 +33,24 @@ export class CreateBoardPage implements OnInit {
   constructor(
     private router: Router,
     private boardService: BoardService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private route: ActivatedRoute
   ) {}
 
-  ngOnInit() {}
+  // param : http://localhost:4200/board/1
+  // query : http://localhost:4200/board?seq=1
+  ngOnInit() {
+    this.seq = this.route.snapshot.params.seq;
+    // this.route.snapshot.params['seq'];
+
+    // patchValue, setValue 차이
+    if (this.seq) {
+      this.boardService.findById(this.seq).subscribe((res) => {
+        this.createForm.patchValue(res);
+        this.isUpdate = true;
+      });
+    }
+  }
 
   exit() {
     this.router.navigateByUrl('');
@@ -40,25 +58,19 @@ export class CreateBoardPage implements OnInit {
 
   //
   async submit() {
-    // value를 변환
-    // 입력하지 않은 값들을 넣어주기
-    this.createForm.patchValue({
-      createdAt: new Date(),
-      writer: localStorage.getItem('nickname'),
-    });
-
-    // 유효성검사에서 오류가 났다
+    if (!this.isUpdate) {
+      // value를 변환
+      // 입력하지 않은 값들을 넣어주기
+      this.createForm.patchValue({
+        createdAt: new Date(),
+        writer: localStorage.getItem('nickname'),
+      });
+    }
     if (!this.createForm.valid) {
       const toast = await this.toastService.showToast(
         '입력되지 않은 값이 있습니다.',
         ToastColorType.DANGER
       );
-      // const toast = await this.toastController.create({
-      //   message: '입력되지 않은 값이 있습니다.',
-      //   position: 'bottom',
-      //   duration: 3000,
-      //   color: 'danger',
-      // });
       toast.present();
       return;
     }
@@ -66,9 +78,30 @@ export class CreateBoardPage implements OnInit {
     // console.log('createAt', this.createForm.getRawValue());
     const body = this.createForm.getRawValue();
 
-    // react에서 fetch처럼 데이터 넘기는 것...? 각각 조건을 만들어 확인하기
-    this.boardService.create(body).subscribe({
-      next: async (res) => {
+    if (!this.isUpdate) {
+      this.boardService.create(body).subscribe({
+        next: async (res) => {
+          if (res === 'OK') {
+            const toast = await this.toastService.showToast(
+              '등록이 완료되었습니다.',
+              ToastColorType.SUCCESS
+            );
+            toast.present();
+            this.router.navigateByUrl('');
+          } else {
+            const toast = await this.toastService.showToast(
+              '알 수 없는 오류 입니다.',
+              ToastColorType.DANGER
+            );
+            toast.present();
+          }
+        },
+        error: (error: HttpErrorResponse) => {},
+        //무조건 실행
+        complete: () => {},
+      });
+    } else {
+      this.boardService.update(body, this.seq).subscribe(async (res) => {
         if (res === 'OK') {
           const toast = await this.toastService.showToast(
             '등록이 완료되었습니다.',
@@ -83,10 +116,7 @@ export class CreateBoardPage implements OnInit {
           );
           toast.present();
         }
-      },
-      error: (error: HttpErrorResponse) => {},
-      //무조건 실행
-      complete: () => {},
-    });
+      });
+    }
   }
 }

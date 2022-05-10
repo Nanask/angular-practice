@@ -6,8 +6,12 @@ import { CreateBoardPage } from './create-board.page';
 const routes: Routes = [
   {
     path: '',
-    component: CreateBoardPage
-  }
+    component: CreateBoardPage,
+  },
+  {
+    path: ':seq',
+    component: CreateBoardPage,
+  },
 ];
 
 @NgModule({

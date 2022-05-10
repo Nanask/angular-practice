@@ -1,5 +1,6 @@
 <ion-header>
-  <div class="p-4 text-lg font-bold">새 글 작성</div>
+  <div class="p-4 text-lg font-bold" *ngIf="!isUpdate">새 글 작성</div>
+  <div class="p-4 text-lg font-bold" *ngIf="isUpdate">게시글 수정</div>
 </ion-header>
 <ion-content>
   <form [formGroup]="createForm" class="flex flex-col justify-between h-full">
@@ -35,7 +36,7 @@
         class="cursor-pointer bg-gray-600 rounded px-2 py-1"
         (click)="submit()"
       >
-        출간하기
+        {{isUpdate ? '수정하기' : '출간하기'}}
       </div>
     </div>
   </form>
