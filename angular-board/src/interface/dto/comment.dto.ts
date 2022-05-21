@@ -4,4 +4,5 @@ export interface ICommentDTO {
   content: string;
   createdAt: string;
   updatedAt: string;
+  b_seq: number;
 }

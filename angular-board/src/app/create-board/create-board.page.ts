@@ -107,6 +107,7 @@ export class CreateBoardPage implements OnInit {
             '등록이 완료되었습니다.',
             ToastColorType.SUCCESS
           );
+          console.log("res", res)
           toast.present();
           this.router.navigateByUrl('');
         } else {

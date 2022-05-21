@@ -29,7 +29,7 @@ export class CommnetService {
   }
 
   update(seq: number, body: ICommentDTO): Observable<string> {
-    return this.HttpClient.post<string>(`${this.baseUrl}/${seq}`, body);
+    return this.HttpClient.put<string>(`${this.baseUrl}/${seq}`, body);
   }
 
   delete(seq: number): Observable<string> {

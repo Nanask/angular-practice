@@ -7,6 +7,7 @@ import { BoardComponent } from './../board/board.component';
 import { HomePageRoutingModule } from './home-routing.module';
 import { DatePipe } from 'src/pipe/date.pipe';
 import { BoardDetailComponent } from './../board-detail/board-detail.component';
+import { CommentComponent } from '../comment/comment.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,12 @@ import { BoardDetailComponent } from './../board-detail/board-detail.component';
     ReactiveFormsModule,
   ],
 
-  declarations: [HomePage, BoardComponent, DatePipe, BoardDetailComponent],
+  declarations: [
+    HomePage,
+    BoardComponent,
+    DatePipe,
+    BoardDetailComponent,
+    CommentComponent,
+  ],
 })
 export class HomePageModule {}
