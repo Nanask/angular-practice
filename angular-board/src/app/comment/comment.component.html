@@ -3,7 +3,12 @@
     <div class="justify-between flex w-full">
       <div>
         <div>{{ comment?.writer }}</div>
-        <div class="text-gray-500 text-sm">{{ comment?.createdAt }}</div>
+        <div class="text-gray-500 text-sm" *ngIf="!comment?.updatedAt">
+          {{ comment?.createdAt }}
+        </div>
+        <div class="text-gray-500 text-sm" *ngIf="comment?.updatedAt">
+          수정됨 {{ comment?.updatedAt }}
+        </div>
       </div>
       <div class="flex text-sm space-x-2">
         <div

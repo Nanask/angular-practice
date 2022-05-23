@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '../pipe/date.pipe';
+import { NgxsModule } from '@ngxs/store';
+import { ThemeState } from './store/theme.state';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +19,7 @@ import { DatePipe } from '../pipe/date.pipe';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    NgxsModule.forRoot([ThemeState]),
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

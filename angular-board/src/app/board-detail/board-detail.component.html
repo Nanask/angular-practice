@@ -31,7 +31,7 @@
     ></textarea>
     <div class="w-full flex justify-end">
       <div
-        class="text-white bg-teal-400 w-max h-max px-2 py-1 rounded-sm"
+        class="text-white bg-teal-400 w-max h-max px-2 py-1 rounded-sm cursor-pointer"
         (click)="submit()"
       >
         댓글 작성
@@ -41,6 +41,6 @@
   <app-comment
     [comment]="comment"
     *ngFor="let comment of comments"
-    (commentUpdate)="commentUpdate($event)"
+    (completedUpdate)="isCompletedUpdate($event)"
   ></app-comment>
 </ion-content>

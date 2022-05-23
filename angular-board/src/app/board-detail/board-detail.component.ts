@@ -14,7 +14,6 @@ import { comment } from 'postcss';
   styleUrls: ['./board-detail.component.scss'],
 })
 export class BoardDetailComponent implements OnInit {
-  b_seq: number;
   isUpdate = false;
 
   commentForm = new FormGroup({
@@ -22,6 +21,7 @@ export class BoardDetailComponent implements OnInit {
     createdAt: new FormControl(null, [Validators.required]),
     updatedAt: new FormControl(null, [Validators.required]),
     content: new FormControl(null, [Validators.required]),
+    b_seq: new FormControl(null, [Validators.required]),
   });
 
   @Input() board: IBoardDTO;
@@ -35,7 +35,6 @@ export class BoardDetailComponent implements OnInit {
   ) {}
 
   comments: ICommentDTO[];
-  comment: ICommentDTO;
 
   ngOnInit() {
     this.getComments();
@@ -47,7 +46,6 @@ export class BoardDetailComponent implements OnInit {
     this.commentService.findByBoardId(this.board.seq).subscribe((res) => {
       if (res) {
         this.comments = res;
-        console.log('comments', this.comments);
       }
     });
   }
@@ -57,12 +55,11 @@ export class BoardDetailComponent implements OnInit {
     this.commentForm.patchValue({
       createdAt: new Date(),
       writer: localStorage.getItem('nickname'),
-      b_seq: this.comment?.seq,
+      b_seq: this.board?.seq, // 개시글번호
     });
     const body = this.commentForm.getRawValue();
 
     this.commentService.create(body).subscribe((res) => {
-      console.log(body);
       this.getComments();
     });
   }
@@ -88,36 +85,10 @@ export class BoardDetailComponent implements OnInit {
     alert.present();
   }
 
-  async commentUpdate(ev: any) {
-    console.log('ev', ev);
-    const alert = await this.alertController.create({
-      header: '업데이트',
-      message: '댓글을 수정하시겠습니까?',
-      buttons: [
-        {
-          text: '확인',
-          handler: () => {
-            this.isUpdate = true;
-            this.commentForm.patchValue({
-              updateAt: new Date(),
-              writer: localStorage.getItem('nickname'),
-              b_seq: this.comment?.seq,
-              content: this.comment?.content,
-            });
-
-            const body = this.commentForm.getRawValue();
-            console.log('body', body);
-            this.commentService.update(this.b_seq, body).subscribe((res) => {
-              console.log('res');
-            });
-            // this.commentService.findById(ev).subscribe((res) => {
-            //   console.log(res);
-            // });
-          },
-        },
-      ],
-    });
-    alert.present();
+  isCompletedUpdate(ev: any) {
+    if (ev) {
+      this.getComments();
+    }
   }
 
   async boardDelete() {

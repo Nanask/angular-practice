@@ -1,5 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { SetTheme } from './../store/theme.action';
 
 @Component({
   selector: 'app-home',
@@ -9,11 +12,13 @@ import { Router } from '@angular/router';
 
 // OnInit 컴포넌트가 생성될 때
 export class HomePage implements OnInit {
+  @Select((state) => state.theme) theme$: Observable<string>;
+
   nickname: string = '';
 
   segmentValue = 'board';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private store: Store) {}
   // 생명주기 확인
   // ngOnDestroy(): void {
   //   throw new Error('Method not implemented.');
@@ -24,6 +29,8 @@ export class HomePage implements OnInit {
     if (nickname) {
       this.nickname = nickname;
     }
+
+    this.store.dispatch(new SetTheme());
   }
 
   // nickname localStorage 저장

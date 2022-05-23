@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./comment.component.scss'],
 })
 export class CommentComponent implements OnInit {
+  @Output() completedUpdate: EventEmitter<boolean> = new EventEmitter();
+
   commentForm = new FormGroup({
     writer: new FormControl(null, [Validators.required]),
     createdAt: new FormControl(null, [Validators.required]),
@@ -28,8 +30,6 @@ export class CommentComponent implements OnInit {
   ) {}
 
   @Input() comment: ICommentDTO;
-  // @Output() commentUpdate: EventEmitter<number> = new EventEmitter();
-  // @Output() commentUpdate: EventEmitter<string> = new EventEmitter();
 
   isUpdate = false;
   updateComment: string;
@@ -39,22 +39,13 @@ export class CommentComponent implements OnInit {
   setUpdate(content: string) {
     this.commnetService.findById(this.comment.seq).subscribe((res) => {
       this.comment = res;
-      console.log('comment', res);
     });
 
     this.isUpdate = true;
     this.updateComment = content;
   }
 
-  // updateHandler(seq: number) {
-  //   this.commentUpdate.emit(seq);
-  // }
-  // updateHandler(content: string) {
-  //   this.commentUpdate.emit(content);
-  // }
   async commentUpdate() {
-    // console.log('ev', ev);
-
     const alert = await this.alertController.create({
       header: '업데이트',
       message: '댓글을 수정하시겠습니까?',
@@ -62,33 +53,20 @@ export class CommentComponent implements OnInit {
         {
           text: '확인',
           handler: () => {
-            this.commentForm.setValue({
-              createdAt: this.comment.createdAt,
+            this.commentForm.patchValue({
+              ...this.comment,
               updatedAt: new Date(),
               writer: localStorage.getItem('nickname'),
               content: this.updateComment,
-              seq: this.comment?.seq,
-              b_seq: this.comment?.b_seq,
             });
-            // this.commentForm.patchValue({
-            //   updateAt: new Date(),
-            // });
 
             const body = this.commentForm.getRawValue();
-            console.log('body', body);
-            // this.commnetService.findById(this.comment.seq).subscribe((res) => {
-            //   console.log('seq', this.comment.seq);
-            // });
             this.commnetService
               .update(this.comment.seq, body)
               .subscribe((res) => {
-                console.log('res');
+                this.completedUpdate.emit(true);
+                this.isUpdate = false;
               });
-
-            this.isUpdate = false;
-            // this.commentService.findById(ev).subscribe((res) => {
-            //   console.log(res);
-            // });
           },
         },
       ],
