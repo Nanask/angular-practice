@@ -4,12 +4,10 @@ const todoList = document.querySelector(".todo_list");
 console.log("todo", todo);
 console.log("todo", todoList);
 
-const todos = [];
-let id = 0;
+const TODOS = "todos";
 
-function saveTodo() {
-  localStorage.setItem("todo", JSON.stringify(todos));
-}
+let todos = [];
+let id = 0;
 
 function todoDelete(e) {
   console.log("event", e.target.parentElement);
@@ -17,20 +15,47 @@ function todoDelete(e) {
   li.remove();
 }
 
-function todoUpdate(e) {
+function todoUpdate(e, liId) {
+  if (e.keyCode === 13) {
+    const value = e.target.value;
+    console.log("value", value);
+    // todos.map((todo) => {
+    //   console.log("todo", todo);
+    //   console.log("todo", todo.id);
+    //   todo.id === liId ? { ...todo, content: value } : todo;
+    // });
+
+    // console.log("set", set);
+
+    // for (let i = 0; todos.length; i++) {
+    // for (let todo in todos) {
+    //   // console.log("todos", todos[todo]);
+    //   // console.log("todo", todo);
+    //   // console.log("liId", liId);
+    //   todo === liId ? todos.splice(todo, 1, { content: value, id: todo }) : todo;
+    //   // todo === liId ? todos.splice(todo, 1, { content: value, id: todo }) : todo;
+    // }
+
+    todos.forEach((todo) => {
+      console.log("todos", todo);
+    });
+    console.log("todos", todos);
+  }
+  // console.log("todos", todos);
+}
+
+function todoDblclick(e) {
   const text = e.target;
-  const todo = e.target.value;
   const li = text.parentElement;
+  li.innerHTML = null;
   const input = document.createElement("input");
-  // const span = e.target.parentElement;
-  const span = li.childNodes;
   li.appendChild(input);
-  input.setAttribute("value", text.value);
-  text.remove();
-  console.log("li", li);
-  console.log("span", span);
-  console.log("text", text);
-  console.log("todo", todo);
+  const inputText = text.innerText;
+  input.setAttribute("value", inputText);
+  // console.log("li", li);
+  // console.log("li", li.id);
+
+  li.addEventListener("keyup", (e) => todoUpdate(e, li.id));
 }
 
 function todoAdd(todoValue) {
@@ -38,14 +63,15 @@ function todoAdd(todoValue) {
   const span = document.createElement("span");
   const button = document.createElement("button");
   span.innerText = todoValue;
-  button.innerText = "X";
+  button.innerHTML = "X";
   button.addEventListener("click", todoDelete);
   li.appendChild(span);
   todoList.appendChild(li);
   li.appendChild(button);
-  span.addEventListener("dblclick", todoUpdate);
-
-  // localStorage.setItem("todo", todoValue);
+  todos.map((todo) => {
+    li.setAttribute("id", todo.id);
+  });
+  span.addEventListener("dblclick", (e) => todoDblclick(e));
 }
 
 function todoSubmit(e) {
@@ -53,9 +79,21 @@ function todoSubmit(e) {
   e.preventDefault();
   const todoValue = todoItem.value;
   todoItem.value = "";
-  todos.push({ todoValue, id: number });
+  todos.push({ content: todoValue, id: number });
   todoAdd(todoValue);
-  saveTodo();
+  // saveTodo();
 }
 
 todo.addEventListener("submit", todoSubmit);
+
+// function saveTodo() {
+//   localStorage.setItem(TODOS, JSON.stringify(todos));
+// }
+
+// const savedTodo = localStorage.getItem(TODOS);
+// console.log("saved", savedTodo);
+
+// if (savedTodo !== null) {
+//   const parsedTodo = JSON.parse(savedTodo);
+//   console.log(parsedTodo);
+// }
