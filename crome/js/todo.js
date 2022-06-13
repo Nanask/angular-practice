@@ -44,14 +44,8 @@ function todoDblclick(e) {
   li.addEventListener("keyup", (e) => todoUpdate(e, todoId));
 }
 
+// 완료표시
 function todoCompleted(e, todoId) {
-  const checkBox = e.target.parentElement;
-  const check = document.querySelector(".todo_check");
-  console.log("checkBox", checkBox);
-  console.log("id", todoId);
-
-  console.log("check", check);
-
   const _todos = todos.map((todo) => {
     return todo.id == todoId ? { ...todo, completed: !todo.completed } : todo;
   });
@@ -84,8 +78,9 @@ function paintTodos() {
     if (todo.completed) {
       checkBox.classList.add("checked");
       checkBox.innerHTML = '<i class="fa-solid fa-check" id="check"></i>';
+      span.style.textDecoration = "line-through";
+      span.style.color = "gray";
     }
-
     todoList.appendChild(li);
     li.appendChild(checkBox);
     li.appendChild(span);
@@ -97,14 +92,18 @@ function paintTodos() {
 
 // Create
 function todoSubmit(e) {
-  const number = id++;
   e.preventDefault();
   const todoValue = todoItem.value;
   todoItem.value = "";
-  const todoObj = { content: todoValue, id: number, completed: false };
-  // todos.push({ content: todoValue, id: number });
-  todos.push(todoObj);
-  console.log("todosObj", todoObj);
+  const length = todos.length;
+  if (length > 1) {
+    const todoObj = { content: todoValue, id: length, completed: false };
+    todos.push(todoObj);
+  } else {
+    const number = id++;
+    const todoObj = { content: todoValue, id: number, completed: false };
+    todos.push(todoObj);
+  }
   paintTodos();
   saveTodo();
 }
@@ -112,14 +111,9 @@ function todoSubmit(e) {
 todo.addEventListener("submit", todoSubmit);
 
 const savedTodo = localStorage.getItem(TODOS);
-console.log("saved", savedTodo);
 
 if (savedTodo !== null) {
   const parsedTodo = JSON.parse(savedTodo);
-  // console.log("parsedTodo", parsedTodo());
   todos = parsedTodo;
-  console.log("todos", todos);
   parsedTodo.forEach(paintTodos);
-
-  // console.log("todos", todos);
 }
