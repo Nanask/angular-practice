@@ -12,11 +12,11 @@ function saveTodo() {
 }
 
 function todoDelete(todoId) {
-  const _todo = todos.filter((todo) => {
+  const _todos = todos.filter((todo) => {
     return todo.id !== todoId;
   });
-  todos = _todo;
-  paintTodos(_todo);
+  todos = _todos;
+  paintTodos(_todos);
   saveTodo();
 }
 
@@ -46,27 +46,17 @@ function todoDblclick(e) {
 
 function todoCompleted(e, todoId) {
   const checkBox = e.target.parentElement;
-  // const check = checkBox.childNodes;
-  const check = document.getElementById("check");
-  // check.style.color = "red";
+  const check = document.querySelector(".todo_check");
+  console.log("checkBox", checkBox);
+  console.log("id", todoId);
 
   console.log("check", check);
 
-  // // const _todos = todos.map((todo) => {
-  //   console.log("todoId", todoId);
-  // console.log("todo.id", todo.id);
-  // return todo.id == todoId ? { ...todo, completed: true } : { ...todo, completed: false };
-  if (todo.id == todoId) {
-    todos = { ...todos, completed: todo.completed };
-    check.style.color = "red";
-  } else if (!todo.completed) {
-    todos = { ...todo, completed: todo.completed };
-    check.style.color = "white";
-  }
-  // return todos;
-  // });
-
-  console.log("_todos", todos);
+  const _todos = todos.map((todo) => {
+    return todo.id == todoId ? { ...todo, completed: !todo.completed } : todo;
+  });
+  todos = _todos;
+  paintTodos(todos);
 }
 
 // Create 한 요소 그려주기
@@ -75,28 +65,29 @@ function paintTodos() {
   todos.forEach((todo) => {
     const li = document.createElement("li");
     li.classList.add("todo_item");
-
+    const checkBox = document.createElement("div");
     const span = document.createElement("span");
-
     const button = document.createElement("button");
+    checkBox.classList.add("todo_check");
     button.classList.add("todo_delete");
-
-    const check = document.createElement("div");
-    check.classList.add("check_box");
 
     // HTML 추가
     span.innerText = todo.content;
     button.innerHTML = '<i class="fa-solid fa-x"></i>';
-    check.innerHTML = '<i class="fa-solid fa-check" id="check"></i>';
 
     //Delete
     button.addEventListener("click", () => todoDelete(todo.id));
 
-    //Completed
-    check.addEventListener("click", (e) => todoCompleted(e, todo.id));
+    // Completed;
+    checkBox.addEventListener("click", (e) => todoCompleted(e, todo.id));
+
+    if (todo.completed) {
+      checkBox.classList.add("checked");
+      checkBox.innerHTML = '<i class="fa-solid fa-check" id="check"></i>';
+    }
 
     todoList.appendChild(li);
-    li.appendChild(check);
+    li.appendChild(checkBox);
     li.appendChild(span);
     li.appendChild(button);
     li.setAttribute("id", todo.id);

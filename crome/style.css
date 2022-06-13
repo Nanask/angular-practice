@@ -22,11 +22,15 @@
   border: none;
 }
 
-.check_box {
-  color: white;
+.todo_check {
   border: 1px solid black;
-  width: 2%;
+  width: 1rem;
+  height: 1rem;
   display: inline-block;
+}
+
+.checked {
+  color: red;
 }
 
 .li {
