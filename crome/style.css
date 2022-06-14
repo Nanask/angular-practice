@@ -36,3 +36,25 @@
 .li {
   display: flex;
 }
+
+.days,
+.week {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.calender {
+  width: 50%;
+}
+
+.month {
+  display: flex;
+}
+
+.day {
+  width: 14%;
+}
+
+.prev_next_month {
+  display: flex;
+}
