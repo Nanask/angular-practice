@@ -1,3 +1,6 @@
+// todo 작성 날짜와 시간 넣기
+// 작성 날짜는 안보이게 저장, 작성 시간은 보이게 저장
+
 const todo = document.querySelector(".todo_form");
 const todoItem = document.querySelector(".todo_form input");
 const todoList = document.querySelector(".todo_list");

@@ -58,3 +58,9 @@
 .prev_next_month {
   display: flex;
 }
+
+.today {
+  border-radius: 2%;
+  background-color: #f87171;
+  color: white;
+}
