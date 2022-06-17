@@ -1,4 +1,3 @@
-// todo 작성 날짜와 시간 넣기
 // 작성 날짜는 안보이게 저장, 작성 시간은 보이게 저장
 
 const todo = document.querySelector(".todo_form");
@@ -9,6 +8,12 @@ const TODOS = "todos";
 
 let todos = [];
 let id = 0;
+
+// todo 작성 날짜와 시간 넣기
+// let date = new Date();
+// const year = date.getFullYear();
+// const month = date.getMonth();
+// const day = date.getDate();
 
 // todos = JSON.parse(localStorage.getItem(TODOS));
 
@@ -102,17 +107,20 @@ function todoSubmit(e) {
   const todoValue = todoItem.value;
   todoItem.value = "";
   const length = todos.length - 1;
-  // const todoId = todos[todos.length - 1];
 
-  // console.log("todos", todos);
+  const localId = localStorage.getItem(TODOS);
+  const parseId = JSON.parse(localId);
+  console.log("todoId", parseId.length - 1);
+  // const todoId = parseId.length - 1;
+  console.log("todo", todos[todos.length - 1].id);
 
-  // const lastTodoId = todos[length].id;
-  // console.log("lastTodoId", lastTodoId);
-
-  // localStorage.getItem(TODOS);
+  // 마지막 요소의 id를 찾아!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // 너때문에 이렇게 오래 걸렸잫아 너는 블로그에 올릴꺼야 이 나쁜놈아
+  const todoId = todos[todos.length - 1].id;
+  // console.log(todos.length - 1);
 
   if (length > 1) {
-    const todoObj = { content: todoValue, id: length + 1, completed: false };
+    const todoObj = { content: todoValue, id: todoId + 1, completed: false };
     todos.push(todoObj);
   } else {
     const number = id++;
