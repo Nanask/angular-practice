@@ -10,6 +10,8 @@ const TODOS = "todos";
 let todos = [];
 let id = 0;
 
+// todos = JSON.parse(localStorage.getItem(TODOS));
+
 function saveTodo() {
   localStorage.setItem(TODOS, JSON.stringify(todos));
 }
@@ -66,6 +68,7 @@ function paintTodos() {
     const div = document.createElement("div");
     const button = document.createElement("button");
     checkBox.classList.add("todo_check");
+    div.classList.add("todo_text");
     button.classList.add("todo_delete");
 
     // HTML 추가
@@ -98,9 +101,18 @@ function todoSubmit(e) {
   e.preventDefault();
   const todoValue = todoItem.value;
   todoItem.value = "";
-  const length = todos.length;
+  const length = todos.length - 1;
+  // const todoId = todos[todos.length - 1];
+
+  // console.log("todos", todos);
+
+  // const lastTodoId = todos[length].id;
+  // console.log("lastTodoId", lastTodoId);
+
+  // localStorage.getItem(TODOS);
+
   if (length > 1) {
-    const todoObj = { content: todoValue, id: length, completed: false };
+    const todoObj = { content: todoValue, id: length + 1, completed: false };
     todos.push(todoObj);
   } else {
     const number = id++;

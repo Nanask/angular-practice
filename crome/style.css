@@ -40,7 +40,8 @@
 .login_input,
 .login_button,
 .todo_form > input,
-li > button {
+li > button,
+.todo_item > input {
   outline: none;
   border: none;
   cursor: pointer;
@@ -80,8 +81,9 @@ li > button {
   margin-top: 10px;
 }
 
-.todo_form {
+.todo_form > input {
   padding-bottom: 0.5rem;
+  width: 300px;
 }
 
 .todo_calender {
@@ -97,9 +99,25 @@ li > button {
   align-items: center;
 }
 
+.todo_item > input {
+  /* background-color: antiquewhite; */
+  border-bottom: 1px solid black;
+  margin: 5px 0 5px 0;
+  padding: 5px 0 0 0;
+  font-size: large;
+  width: 300px;
+}
+
+.todo_text {
+  width: 270px;
+}
+
+.todo_list {
+  width: 400px;
+}
+
 .todo_delete {
-  outline: none;
-  border: none;
+  justify-content: end;
 }
 
 .todo_check {
@@ -107,14 +125,29 @@ li > button {
   width: 1rem;
   height: 1rem;
   display: inline-block;
+  position: relative;
+}
+
+.todo_check > i {
+  position: absolute;
+  top: 0%;
+  left: 0%;
 }
 
 .checked {
   color: red;
 }
 
+ul {
+  padding-top: 5px;
+}
+
 li {
   display: flex;
+}
+
+li > div {
+  padding: 0 5px 0 5px;
 }
 
 .days,
@@ -135,6 +168,7 @@ li {
 
 .day {
   width: 14%;
+  padding: 5px 0 5px 0;
 }
 
 .prev_next_month {
