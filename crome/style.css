@@ -1,20 +1,100 @@
+/* font */
+
+@font-face {
+  font-family: "MICEGothic";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-01@1.0/MICEGothic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   list-style: none;
+  font-family: "MICEGothic";
 }
 
-.main {
-  background-image: url("/cat2.jpg");
-  background-size: cover;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
+.header {
+  display: flex;
+}
+
+.login_form,
+.todo_header,
+.greeting,
+.todo_main,
+.prev_next_month {
+  padding: 1rem 1.3rem 1rem 1.3rem;
+}
+
+.login_header,
+.calender {
+  width: 350px;
+}
+
+.todo_header {
+  align-self: center;
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.login_input,
+.login_button,
+.todo_form > input,
+li > button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.greeting {
+  font-size: large;
+}
+
+.login_input,
+.todo_form > input {
+  border: 2px solid #e1e1e1;
+  padding: 4px;
+}
+
+.login_input:focus {
+  border: 2px solid #e1e1e1;
+  padding: 4px;
+}
+
+.login_button {
+  transition: all 0.3s ease;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  font-weight: bold;
+}
+
+.login_button:hover {
+  box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9, 7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
+  cursor: pointer;
+}
+
+.todo_main,
+.calender {
+  margin-top: 10px;
+}
+
+.todo_form {
+  padding-bottom: 0.5rem;
+}
+
+.todo_calender {
+  display: flex;
 }
 
 .hidden {
   display: none;
+}
+
+.todo_item {
+  padding: 3px;
+  align-items: center;
 }
 
 .todo_delete {
@@ -33,7 +113,7 @@
   color: red;
 }
 
-.li {
+li {
   display: flex;
 }
 
@@ -41,14 +121,16 @@
 .week {
   display: flex;
   flex-wrap: wrap;
+  text-align: center;
 }
 
-.calender {
-  width: 50%;
+.yearMonth {
+  font-weight: bold;
 }
 
-.month {
-  display: flex;
+.week,
+.days {
+  justify-content: center;
 }
 
 .day {
@@ -57,10 +139,23 @@
 
 .prev_next_month {
   display: flex;
+  justify-content: space-between;
 }
 
-.today {
-  border-radius: 2%;
+.arrow_month {
+  display: flex;
+  width: 50px;
+  justify-content: space-between;
+}
+
+.today > span {
+  border-radius: 50%;
   background-color: #f87171;
   color: white;
+  display: inline-block;
+  width: 60%;
+}
+
+.other {
+  opacity: 0.5;
 }

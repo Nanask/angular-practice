@@ -9,33 +9,48 @@
     <title>Momentum App</title>
   </head>
   <body>
-    <form class="login_form hidden">
-      <!-- <div class="login_form"> -->
-      <input type="text" required maxlength="15" placeholder="Type your name here" />
-      <input type="submit" value="Log In" />
-      <!-- </div> -->
-    </form>
-    <h1 class="hidden greeting"></h1>
-    <form class="todo_form">
-      <input type="text" required placeholder="Write a To Do here" />
-    </form>
-    <ul class="todo_list"></ul>
-    <div class="calender">
-      <div class="prev_next_month">
-        <i class="fa-solid fa-chevron-left prev_month"></i>
-        <div class="yearMonth"></div>
-        <i class="fa-solid fa-chevron-right next_month"></i>
+    <div class="header">
+      <div class="login_header">
+        <form class="login_form hidden">
+          <input class="login_input" type="text" required maxlength="15" placeholder="Type your name here" />
+          <input class="login_button" type="submit" value="Log In" />
+        </form>
+        <h1 class="hidden greeting"></h1>
       </div>
-      <div class="week">
-        <div class="day">Sun</div>
-        <div class="day">Mon</div>
-        <div class="day">Tue</div>
-        <div class="day">Wed</div>
-        <div class="day">Thu</div>
-        <div class="day">Fri</div>
-        <div class="day">Sat</div>
+      <div class="todo_header">TODOS</div>
+    </div>
+    <div class="todo_calender">
+      <div class="calender_main">
+        <div class="calender">
+          <div class="prev_next_month">
+            <div class="yearMonth"></div>
+            <div class="arrow_month">
+              <div class="arrow_left">
+                <i class="fa-solid fa-chevron-left prev_month"></i>
+              </div>
+              <div class="arrow_right">
+                <i class="fa-solid fa-chevron-right next_month"></i>
+              </div>
+            </div>
+          </div>
+          <div class="week">
+            <div class="day">일</div>
+            <div class="day">월</div>
+            <div class="day">화</div>
+            <div class="day">수</div>
+            <div class="day">목</div>
+            <div class="day">금</div>
+            <div class="day">토</div>
+          </div>
+          <div class="days" id="days"></div>
+        </div>
       </div>
-      <div class="days" id="days"></div>
+      <div class="todo_main">
+        <form class="todo_form">
+          <input type="text" required placeholder="Write a To Do here" />
+        </form>
+        <ul class="todo_list"></ul>
+      </div>
     </div>
     <script src="/js/app.js"></script>
     <script src="/js/todo.js"></script>

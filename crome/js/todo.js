@@ -63,13 +63,13 @@ function paintTodos() {
     const li = document.createElement("li");
     li.classList.add("todo_item");
     const checkBox = document.createElement("div");
-    const span = document.createElement("span");
+    const div = document.createElement("div");
     const button = document.createElement("button");
     checkBox.classList.add("todo_check");
     button.classList.add("todo_delete");
 
     // HTML 추가
-    span.innerText = todo.content;
+    div.innerText = todo.content;
     button.innerHTML = '<i class="fa-solid fa-x"></i>';
 
     //Delete
@@ -81,15 +81,15 @@ function paintTodos() {
     if (todo.completed) {
       checkBox.classList.add("checked");
       checkBox.innerHTML = '<i class="fa-solid fa-check" id="check"></i>';
-      span.style.textDecoration = "line-through";
-      span.style.color = "gray";
+      div.style.textDecoration = "line-through";
+      div.style.color = "gray";
     }
     todoList.appendChild(li);
     li.appendChild(checkBox);
-    li.appendChild(span);
+    li.appendChild(div);
     li.appendChild(button);
     li.setAttribute("id", todo.id);
-    span.addEventListener("dblclick", (e) => todoDblclick(e));
+    div.addEventListener("dblclick", (e) => todoDblclick(e));
   });
 }
 

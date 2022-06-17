@@ -1,6 +1,10 @@
 // 오늘 날짜 표시
 // 날짜를 누르면 해당 날짜의 todo 보여주기
 
+// todo , 캘린더
+
+//
+
 let date = new Date();
 const year = date.getFullYear();
 const month = date.getMonth();
@@ -46,7 +50,14 @@ function renderCalender() {
   console.log("prevDate", prevDate); // 31 , 이전달의 마지막 날짜
   const prevDay = startDay.getDay();
   console.log("prevDay", prevDay); // 화요일 , 2 , 이전달의 마지막 요일
-  2;
+
+  // 6월 기준 prevDay 2
+  // +
+  // 6월 기준 nextDate 30
+  // 32
+
+  // 6월 기준 첫번째 주 29일 ~ 6월 마지막 주 30일 = 33일
+  // [32]
 
   for (let i = prevDate - prevDay; i <= prevDate; i++) {
     dates.push(i);
@@ -92,15 +103,18 @@ function renderCalender() {
     // i = dates ----- dates마지막
     // prevDay = 2 , i 의 0,1,2 에 클래스를 먹이면 되겠네
     // console.log("i <= prevDay", );
-    //  if (i <= prevDay) {
-    days.innerHTML += `<div class="day date" id=${day}>${day}</div>`;
+    //  if (i <= prevDay) {s
+
     // 1. pDay 배열로 받기
-    const pDay = document.querySelectorAll(".date");
-    if (i <= prevDay) {
+    // const pDay = document.querySelectorAll(".date");
+    if (i <= prevDay || nextDate + prevDay < i) {
+      days.innerHTML += `<div class="day date other" id=${day}><span>${day}<span></div>`;
       // 1. 조건에 맞는 애를 class add시키기
       // pDay.classList.add("today");
-      console.log("i", i);
-      pDay[i].classList.add("today");
+      // console.log("i", i);
+      // pDay[i].classList.add("today");
+    } else {
+      days.innerHTML += `<div class="day date" id=${day}><span>${day}<span></div>`;
     }
   });
   // for(let i = 0 ; i <= dates.length ; i++) {
