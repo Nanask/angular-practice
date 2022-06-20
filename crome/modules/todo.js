@@ -28,7 +28,7 @@ function todoDelete(todoId) {
     return todo.id !== todoId;
   });
   todos = _todos;
-  paintTodos(_todos);
+  paintTodos();
   saveTodo();
 }
 
@@ -40,7 +40,7 @@ function todoUpdate(e, todoId) {
     });
     todos = _todos;
     console.log("todos", todos);
-    paintTodos(_todos);
+    paintTodos();
     saveTodo();
   }
 }
@@ -48,6 +48,7 @@ function todoUpdate(e, todoId) {
 function todoDblclick(e) {
   const text = e.target;
   const li = text.parentElement;
+  console.log("li", li);
   li.innerHTML = null;
   const input = document.createElement("input");
   li.appendChild(input);
@@ -63,11 +64,18 @@ function todoCompleted(e, todoId) {
     return todo.id == todoId ? { ...todo, completed: !todo.completed } : todo;
   });
   todos = _todos;
-  paintTodos(todos);
+  paintTodos();
+  saveTodo();
 }
 
 // Create 한 요소 그려주기
-function paintTodos() {
+const paintTodos = function (year, month, day) {
+  console.log("date", year, month + 1, day);
+  // year, month, day가 같으면 일치하는 todo를 보여주기
+  console.log("todos", todos.year, todos.month, todos.day);
+  if (year == todos.year && month == todos.month && day == todos.day) {
+    console.log("ㅇㅇㅇ");
+  }
   todoList.innerHTML = null;
   todos.forEach((todo) => {
     const li = document.createElement("li");
@@ -102,7 +110,7 @@ function paintTodos() {
     li.setAttribute("id", todo.id);
     div.addEventListener("dblclick", (e) => todoDblclick(e));
   });
-}
+};
 
 // Create
 function todoSubmit(e) {
@@ -120,6 +128,11 @@ function todoSubmit(e) {
   // console.log("todoId", todoId);
   // console.log("todo", todos[todos.length - 1].id);
 
+  // const todoDay = `${todoDate.getFullYear()}년 ${todoDate.getMonth()}월 ${todoDate.getDay()}일`;
+  const todoYear = todoDate.getFullYear();
+  const todoMonth = todoDate.getMonth() + 1;
+  const todoDay = todoDate.getDay();
+
   // console.log("todos", todos);
   // 배열이 존재하지 않아서 id값을 찾을수 없었기 때문에 문제가 발생
   // const todoId = todos[length].id;
@@ -129,13 +142,13 @@ function todoSubmit(e) {
   if (length > 1) {
     const todoId = todos[length].id;
     console.log("todoId", todoId);
-    const todoObj = { content: todoValue, id: todoId + 1, completed: false, day: todoDate };
+    const todoObj = { content: todoValue, id: todoId + 1, completed: false, year: todoYear, month: todoMonth, day: todoDay };
     todos.push(todoObj);
     console.log("todos", todos);
     console.log("todos[0].id", todos[0].id);
   } else {
     const number = id++;
-    const todoObj = { content: todoValue, id: number, completed: false, day: todoDate };
+    const todoObj = { content: todoValue, id: number, completed: false, year: todoYear, month: todoMonth, day: todoDay };
     todos.push(todoObj);
   }
   paintTodos();
@@ -151,3 +164,5 @@ if (savedTodo !== null) {
   todos = parsedTodo;
   parsedTodo.forEach(paintTodos);
 }
+
+export { paintTodos };
