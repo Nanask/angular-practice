@@ -5,6 +5,8 @@ const todoItem = document.querySelector(".todo_form input");
 const todoList = document.querySelector(".todo_list");
 
 const TODOS = "todos";
+let todoDate = new Date();
+console.log("todoDate", todoDate);
 
 let todos = [];
 let id = 0;
@@ -37,6 +39,7 @@ function todoUpdate(e, todoId) {
       return todo.id == todoId ? { ...todo, content: value } : todo;
     });
     todos = _todos;
+    console.log("todos", todos);
     paintTodos(_todos);
     saveTodo();
   }
@@ -106,25 +109,33 @@ function todoSubmit(e) {
   e.preventDefault();
   const todoValue = todoItem.value;
   todoItem.value = "";
+  // 밑에 if로 조건문을 걸어놨기 때문에 -1부터 시작하도록 진행
   const length = todos.length - 1;
+  console.log("length", length);
 
-  const localId = localStorage.getItem(TODOS);
-  const parseId = JSON.parse(localId);
-  console.log("todoId", parseId.length - 1);
+  // const localId = localStorage.getItem(TODOS);
+  // const parseId = JSON.parse(localId);
+  // console.log("todoId", parseId.length - 1);
   // const todoId = parseId.length - 1;
-  console.log("todo", todos[todos.length - 1].id);
+  // console.log("todoId", todoId);
+  // console.log("todo", todos[todos.length - 1].id);
 
+  // console.log("todos", todos);
+  // 배열이 존재하지 않아서 id값을 찾을수 없었기 때문에 문제가 발생
+  // const todoId = todos[length].id;
   // 마지막 요소의 id를 찾아!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // 너때문에 이렇게 오래 걸렸잫아 너는 블로그에 올릴꺼야 이 나쁜놈아
-  const todoId = todos[todos.length - 1].id;
-  // console.log(todos.length - 1);
 
   if (length > 1) {
-    const todoObj = { content: todoValue, id: todoId + 1, completed: false };
+    const todoId = todos[length].id;
+    console.log("todoId", todoId);
+    const todoObj = { content: todoValue, id: todoId + 1, completed: false, day: todoDate };
     todos.push(todoObj);
+    console.log("todos", todos);
+    console.log("todos[0].id", todos[0].id);
   } else {
     const number = id++;
-    const todoObj = { content: todoValue, id: number, completed: false };
+    const todoObj = { content: todoValue, id: number, completed: false, day: todoDate };
     todos.push(todoObj);
   }
   paintTodos();
