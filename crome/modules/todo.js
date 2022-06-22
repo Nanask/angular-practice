@@ -67,45 +67,51 @@ function todoCompleted(e, todoId) {
   saveTodo();
 }
 
+// day 클릭시 todo 보여주기
 const dayTodo = function (year, month, day) {
+  // _todos = [];
   // console.log("date", year, month + 1, day);
   // todo의 year, month, day가 같은 값을 찾아서 로컬스토리지에 있는 값으로 보여주기
-  // const savedTodo = localStorage.getItem(TODOS);
-  // const parsedTodo = JSON.parse(savedTodo);
-  // console.log("parsedTodo", parsedTodo);
-  // console.log("parsedTodo", parsedTodo[year]);
-  // if (todos.day == day) {
-  // const _todos =
-  todos.forEach((todo) => {
+  const _todos = todos.filter((todo) => {
     // if (todo.day == day && todo.year == year && todo.month == month) {
     if (todo.month == month + 1 && todo.day == day && todo.year == year) {
       console.log("todo.year", year, todo.year);
       console.log("todo.month", month + 1, todo.month);
       console.log("todo.day", day, todo.day);
       console.log("todo", todo);
+      // todo.day == day;
       return todo;
     }
     // return day == todo.day || month == todo.month || (year == todo.year) !== todo;
   });
   // todos = _todos;
-  // console.log("todos 캘린더 클릭값", todos);
+  console.log("todos 캘린더 클릭값", _todos);
   // } else {
   // console.log("todos 캘린더 클릭값 else", todos);
   // }
-  paintTodos();
+  paintTodos(_todos);
 };
 
-const paintTodos = function () {
-  // console.log("date", year, month + 1, day);
-  // year, month, day가 같으면 일치하는 todo를 보여주기 진행중
+// function paintTodo(todos) {
+//   console.log("todo");
+//   todoList.innerHTML = null;
+//   todos.forEach((todo) => {
+//     return paintTodos(todo);
+//   });
+// }
 
-  // if (year == todos.year && month == todos.month && day == todos.day) {
-  //   console.log("ㅇㅇㅇ");
-  // }
+// todoItem1은 dayTodo에서 보내준 매개변수값
+const paintTodos = function (todoItem1) {
+  // 새로고침했을때 todoItem을 매개변수로 받지 않으니 기본 데이터를 보여줘야함
+  if (todoItem1 == undefined) {
+    // 배열을 복사
+    todoItem1 = [...todos];
+  }
+  console.log("todoItem", todoItem1);
   todoList.innerHTML = null;
-  todos.forEach((todo) => {
-    // console.log("todos", todo.year, todo.month, todo.day);
+  console.log("todos paintTodos", todos);
 
+  todoItem1.forEach((todo) => {
     const li = document.createElement("li");
     li.classList.add("todo_item");
     const checkBox = document.createElement("div");
@@ -115,12 +121,6 @@ const paintTodos = function () {
     div.classList.add("todo_text");
     button.classList.add("todo_delete");
 
-    // HTML 추가
-    // if (day == todo.day || month == todo.month || year == todo.year) {
-    //   // todo의 같은 값만 보여주기
-
-    //   console.log("ddd");
-    // }
     div.innerText = todo.content;
     button.innerHTML = '<i class="fa-solid fa-x"></i>';
 
@@ -192,7 +192,8 @@ const savedTodo = localStorage.getItem(TODOS);
 if (savedTodo !== null) {
   const parsedTodo = JSON.parse(savedTodo);
   todos = parsedTodo;
-  parsedTodo.forEach(paintTodos);
+  // parsedTodo.forEach(paintTodos);
+  paintTodos();
 }
 
 export { paintTodos, dayTodo };
