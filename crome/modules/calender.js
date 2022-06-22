@@ -1,11 +1,12 @@
 // 오늘 날짜 표시
 // 날짜를 누르면 해당 날짜의 todo 보여주기
-import { paintTodos } from "./todo.js";
+import { paintTodos, dayTodo } from "./todo.js";
+import { date, year, month, day } from "./date.js";
 
-let date = new Date();
-const year = date.getFullYear();
-const month = date.getMonth();
-const day = date.getDate();
+// let date = new Date();
+// const year = date.getFullYear();
+// const month = date.getMonth();
+// const day = date.getDate();
 const calender = document.querySelector(".calender");
 const yearMonth = document.querySelector(".yearMonth");
 const days = document.getElementById("days");
@@ -27,7 +28,9 @@ function calenderClick(e) {
   console.log("dayText", dayText);
   // paintTodos에 클릭한 년도,월,일자를 매개변수로 넘겨주기
   // 클릭한 년도,월,일자와 같은 투두리스트를 보여주기
-  paintTodos(date.getFullYear(), date.getMonth(), dayText);
+  // paintTodos(date.getFullYear(), date.getMonth(), dayText);
+  // paintTodos(date.getFullYear(), date.getMonth(), dayText);
+  dayTodo(date.getFullYear(), date.getMonth(), dayText);
 }
 
 // next 누르면 데이터 보여주기

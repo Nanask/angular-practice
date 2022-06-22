@@ -1,12 +1,11 @@
 // 작성 날짜는 안보이게 저장, 작성 시간은 보이게 저장
+import { date, year, month, day } from "./date.js";
 
 const todo = document.querySelector(".todo_form");
 const todoItem = document.querySelector(".todo_form input");
 const todoList = document.querySelector(".todo_list");
 
 const TODOS = "todos";
-let todoDate = new Date();
-console.log("todoDate", todoDate);
 
 let todos = [];
 let id = 0;
@@ -68,16 +67,45 @@ function todoCompleted(e, todoId) {
   saveTodo();
 }
 
-// Create 한 요소 그려주기
-const paintTodos = function (year, month, day) {
-  console.log("date", year, month + 1, day);
-  // year, month, day가 같으면 일치하는 todo를 보여주기
-  console.log("todos", todos.year, todos.month, todos.day);
-  if (year == todos.year && month == todos.month && day == todos.day) {
-    console.log("ㅇㅇㅇ");
-  }
+const dayTodo = function (year, month, day) {
+  // console.log("date", year, month + 1, day);
+  // todo의 year, month, day가 같은 값을 찾아서 로컬스토리지에 있는 값으로 보여주기
+  // const savedTodo = localStorage.getItem(TODOS);
+  // const parsedTodo = JSON.parse(savedTodo);
+  // console.log("parsedTodo", parsedTodo);
+  // console.log("parsedTodo", parsedTodo[year]);
+  // if (todos.day == day) {
+  // const _todos =
+  todos.forEach((todo) => {
+    // if (todo.day == day && todo.year == year && todo.month == month) {
+    if (todo.month == month + 1 && todo.day == day && todo.year == year) {
+      console.log("todo.year", year, todo.year);
+      console.log("todo.month", month + 1, todo.month);
+      console.log("todo.day", day, todo.day);
+      console.log("todo", todo);
+      return todo;
+    }
+    // return day == todo.day || month == todo.month || (year == todo.year) !== todo;
+  });
+  // todos = _todos;
+  // console.log("todos 캘린더 클릭값", todos);
+  // } else {
+  // console.log("todos 캘린더 클릭값 else", todos);
+  // }
+  paintTodos();
+};
+
+const paintTodos = function () {
+  // console.log("date", year, month + 1, day);
+  // year, month, day가 같으면 일치하는 todo를 보여주기 진행중
+
+  // if (year == todos.year && month == todos.month && day == todos.day) {
+  //   console.log("ㅇㅇㅇ");
+  // }
   todoList.innerHTML = null;
   todos.forEach((todo) => {
+    // console.log("todos", todo.year, todo.month, todo.day);
+
     const li = document.createElement("li");
     li.classList.add("todo_item");
     const checkBox = document.createElement("div");
@@ -88,6 +116,11 @@ const paintTodos = function (year, month, day) {
     button.classList.add("todo_delete");
 
     // HTML 추가
+    // if (day == todo.day || month == todo.month || year == todo.year) {
+    //   // todo의 같은 값만 보여주기
+
+    //   console.log("ddd");
+    // }
     div.innerText = todo.content;
     button.innerHTML = '<i class="fa-solid fa-x"></i>';
 
@@ -129,9 +162,9 @@ function todoSubmit(e) {
   // console.log("todo", todos[todos.length - 1].id);
 
   // const todoDay = `${todoDate.getFullYear()}년 ${todoDate.getMonth()}월 ${todoDate.getDay()}일`;
-  const todoYear = todoDate.getFullYear();
-  const todoMonth = todoDate.getMonth() + 1;
-  const todoDay = todoDate.getDay();
+  const todoYear = date.getFullYear();
+  const todoMonth = date.getMonth() + 1;
+  const todoDay = date.getDate();
 
   // console.log("todos", todos);
   // 배열이 존재하지 않아서 id값을 찾을수 없었기 때문에 문제가 발생
@@ -141,11 +174,8 @@ function todoSubmit(e) {
 
   if (length > 1) {
     const todoId = todos[length].id;
-    console.log("todoId", todoId);
     const todoObj = { content: todoValue, id: todoId + 1, completed: false, year: todoYear, month: todoMonth, day: todoDay };
     todos.push(todoObj);
-    console.log("todos", todos);
-    console.log("todos[0].id", todos[0].id);
   } else {
     const number = id++;
     const todoObj = { content: todoValue, id: number, completed: false, year: todoYear, month: todoMonth, day: todoDay };
@@ -165,4 +195,4 @@ if (savedTodo !== null) {
   parsedTodo.forEach(paintTodos);
 }
 
-export { paintTodos };
+export { paintTodos, dayTodo };
