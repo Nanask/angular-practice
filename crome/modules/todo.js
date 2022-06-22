@@ -27,7 +27,7 @@ function todoDelete(todoId) {
     return todo.id !== todoId;
   });
   todos = _todos;
-  paintTodos();
+  paintTodos(todos);
   saveTodo();
 }
 
@@ -39,7 +39,7 @@ function todoUpdate(e, todoId) {
     });
     todos = _todos;
     console.log("todos", todos);
-    paintTodos();
+    paintTodos(todos);
     saveTodo();
   }
 }
@@ -63,7 +63,7 @@ function todoCompleted(e, todoId) {
     return todo.id == todoId ? { ...todo, completed: !todo.completed } : todo;
   });
   todos = _todos;
-  paintTodos();
+  paintTodos(todos);
   saveTodo();
 }
 
