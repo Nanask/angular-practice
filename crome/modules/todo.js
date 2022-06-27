@@ -58,12 +58,17 @@ function todoDblclick(e) {
 }
 
 // 완료표시
-function todoCompleted(e, todoId) {
-  const _todos = todos.map((todo) => {
+function todoCompleted(e, todoId, todoItems) {
+  console.log("todoItems", todoItems);
+  const _todos = todoItems.map((todo) => {
     return todo.id == todoId ? { ...todo, completed: !todo.completed } : todo;
   });
-  todos = _todos;
-  paintTodos(todos);
+
+  // console.log("todos", todos);
+  // todos = [..._todos];
+  console.log("_todos", _todos);
+  console.log("todoItems", todoItems);
+  paintTodos(_todos);
   saveTodo();
 }
 
@@ -75,10 +80,10 @@ const dayTodo = function (year, month, day) {
   const _todos = todos.filter((todo) => {
     // if (todo.day == day && todo.year == year && todo.month == month) {
     if (todo.month == month + 1 && todo.day == day && todo.year == year) {
-      console.log("todo.year", year, todo.year);
-      console.log("todo.month", month + 1, todo.month);
-      console.log("todo.day", day, todo.day);
-      console.log("todo", todo);
+      // console.log("todo.year", year, todo.year);
+      // console.log("todo.month", month + 1, todo.month);
+      // console.log("todo.day", day, todo.day);
+      // console.log("todo", todo);
       // todo.day == day;
       return todo;
     }
@@ -101,17 +106,17 @@ const dayTodo = function (year, month, day) {
 // }
 
 // todoItem1은 dayTodo에서 보내준 매개변수값
-const paintTodos = function (todoItem1) {
+const paintTodos = function (todoItems) {
   // 새로고침했을때 todoItem을 매개변수로 받지 않으니 기본 데이터를 보여줘야함
-  if (todoItem1 == undefined) {
+  if (todoItems == undefined) {
     // 배열을 복사
-    todoItem1 = [...todos];
+    todoItems = [...todos];
   }
-  console.log("todoItem", todoItem1);
+  console.log("todoItem", todoItems);
   todoList.innerHTML = null;
-  console.log("todos paintTodos", todos);
+  // console.log("todos paintTodos", todos);
 
-  todoItem1.forEach((todo) => {
+  todoItems.forEach((todo) => {
     const li = document.createElement("li");
     li.classList.add("todo_item");
     const checkBox = document.createElement("div");
@@ -128,7 +133,7 @@ const paintTodos = function (todoItem1) {
     button.addEventListener("click", () => todoDelete(todo.id));
 
     // Completed;
-    checkBox.addEventListener("click", (e) => todoCompleted(e, todo.id));
+    checkBox.addEventListener("click", (e) => todoCompleted(e, todo.id, todoItems));
 
     if (todo.completed) {
       checkBox.classList.add("checked");

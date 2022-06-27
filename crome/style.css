@@ -194,3 +194,11 @@ li > div {
 .other {
   opacity: 0.5;
 }
+
+.clickDay > span {
+  border-radius: 50%;
+  background-color: #3c99dc;
+  color: white;
+  display: inline-block;
+  width: 60%;
+}

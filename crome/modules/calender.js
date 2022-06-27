@@ -23,6 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function calenderClick(e) {
   const target = e.target;
+  const targetParentNode = target.parentNode;
+  console.log("parent", targetParentNode);
   const dayText = target.innerText;
   console.log("target", target);
   console.log("dayText", dayText);
@@ -30,6 +32,23 @@ function calenderClick(e) {
   // 클릭한 년도,월,일자와 같은 투두리스트를 보여주기
   // paintTodos(date.getFullYear(), date.getMonth(), dayText);
   // paintTodos(date.getFullYear(), date.getMonth(), dayText);
+
+  // 클릭된 값에 클래스를 주기전에
+  // targetParentNode.classList.remove("clickDay");
+
+  // 클릭한 day를 파란색으로 표시
+  // targetParentNode.classList.add("clickDay");
+
+  // 클래스에 clickDay가 있으면 지우고 새로운 버튼에 주기
+  console.log("e.target.id", targetParentNode.id);
+  console.log("click 되어있는 날짜", document.querySelector(".clickDay"));
+  if (document.querySelector(".clickDay")) {
+    targetParentNode.classList.remove("clickDay");
+  } else {
+    console.log("target else");
+    targetParentNode.classList.add("clickDay");
+  }
+
   dayTodo(date.getFullYear(), date.getMonth(), dayText);
 }
 
