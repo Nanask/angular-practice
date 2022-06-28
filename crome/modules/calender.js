@@ -49,6 +49,11 @@ function calenderClick(e) {
     targetParentNode.classList.add("clickDay");
   }
 
+  // dates.filter((day) => {
+  //   console.log("targetParentNode.id, day", targetParentNode, day);
+  //   targetParentNode !== day ? targetParentNode.classList.add("clickDay") : targetParentNode.classList.remove("clickDay");
+  // });
+
   dayTodo(date.getFullYear(), date.getMonth(), dayText);
 }
 

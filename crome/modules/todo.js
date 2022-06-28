@@ -8,6 +8,7 @@ const todoList = document.querySelector(".todo_list");
 const TODOS = "todos";
 
 let todos = [];
+let newTodos = [];
 let id = 0;
 
 // todo 작성 날짜와 시간 넣기
@@ -19,6 +20,10 @@ let id = 0;
 // todos = JSON.parse(localStorage.getItem(TODOS));
 
 function saveTodo() {
+  // if (newTodos) {
+  //   console.log("newTodos", newTodos);
+  //   todos = { ...todos, content: newTodos.content, completed: newTodos.completeds };
+  // }
   localStorage.setItem(TODOS, JSON.stringify(todos));
 }
 
@@ -27,20 +32,25 @@ function todoDelete(todoId) {
     return todo.id !== todoId;
   });
   todos = _todos;
-  paintTodos(todos);
-  saveTodo();
+  // paintTodos(todos);
+  // todos.forEach(paintTodos);
+  paintTodo(todos);
+  // saveTodo();
 }
 
 function todoUpdate(e, todoId) {
+  // todoList.innerHTML = null;
   if (e.keyCode === 13) {
     const value = e.target.value;
     const _todos = todos.map((todo) => {
       return todo.id == todoId ? { ...todo, content: value } : todo;
     });
-    todos = _todos;
+    newTodos = _todos;
     console.log("todos", todos);
-    paintTodos(todos);
-    saveTodo();
+    // paintTodos(todos);
+    // _todos.forEach(paintTodos);
+    paintTodo(newTodos);
+    // saveTodo();
   }
 }
 
@@ -58,25 +68,46 @@ function todoDblclick(e) {
 }
 
 // 완료표시
-function todoCompleted(e, todoId, todoItems) {
-  console.log("todoItems", todoItems);
-  const _todos = todoItems.map((todo) => {
+function todoCompleted(e, todoId) {
+  // console.log("todoItems", todoItems);
+  const _todos = newTodos.map((todo) => {
     return todo.id == todoId ? { ...todo, completed: !todo.completed } : todo;
   });
 
   // console.log("todos", todos);
   // todos = [..._todos];
   console.log("_todos", _todos);
-  console.log("todoItems", todoItems);
-  paintTodos(_todos);
+  // console.log("todoItems", todoItems);
+  newTodos = _todos;
+  paintTodo(newTodos);
+  // saveTodo();
+}
+
+function paintTodo(newTodos) {
+  console.log("newTodos", newTodos);
+  console.log("todos", todos);
+  todoList.innerHTML = null;
+  // todos.forEach((todo) => {
+  //   return paintTodos(todo);
+  // });
+  // if (todos.id == newTodos.id) {
+  //   console.log("일치하는값?");
+  //   todos = {...}
+  // }
+  // todos = [...todos, newTodos];
+  // console.log("todos", todos);
+  newTodos.forEach(paintTodos);
   saveTodo();
 }
+// 클릭한 todoList를 함수의 매개변수로 넘겨주기
 
 // day 클릭시 todo 보여주기
 const dayTodo = function (year, month, day) {
+  todoList.innerHTML = null;
   // _todos = [];
   // console.log("date", year, month + 1, day);
   // todo의 year, month, day가 같은 값을 찾아서 로컬스토리지에 있는 값으로 보여주기
+  console.log("todos", todos);
   const _todos = todos.filter((todo) => {
     // if (todo.day == day && todo.year == year && todo.month == month) {
     if (todo.month == month + 1 && todo.day == day && todo.year == year) {
@@ -89,65 +120,59 @@ const dayTodo = function (year, month, day) {
     }
     // return day == todo.day || month == todo.month || (year == todo.year) !== todo;
   });
-  // todos = _todos;
-  console.log("todos 캘린더 클릭값", _todos);
+  newTodos = _todos;
+  console.log("todos 캘린더 클릭값", newTodos);
   // } else {
   // console.log("todos 캘린더 클릭값 else", todos);
   // }
-  paintTodos(_todos);
+  // paintTodos(_todos);
+  newTodos.forEach(paintTodos);
 };
 
-// function paintTodo(todos) {
-//   console.log("todo");
-//   todoList.innerHTML = null;
-//   todos.forEach((todo) => {
-//     return paintTodos(todo);
-//   });
-// }
-
 // todoItem1은 dayTodo에서 보내준 매개변수값
-const paintTodos = function (todoItems) {
+const paintTodos = function (newTodo) {
   // 새로고침했을때 todoItem을 매개변수로 받지 않으니 기본 데이터를 보여줘야함
-  if (todoItems == undefined) {
-    // 배열을 복사
-    todoItems = [...todos];
-  }
-  console.log("todoItem", todoItems);
-  todoList.innerHTML = null;
+  // if (newTodo == undefined) {
+  //   // 배열을 복사
+  //   newTodo = [...todos];
+  // }
+  // console.log("todoItem", todoItems);
+  // todoList.innerHTML = null;
   // console.log("todos paintTodos", todos);
 
-  todoItems.forEach((todo) => {
-    const li = document.createElement("li");
-    li.classList.add("todo_item");
-    const checkBox = document.createElement("div");
-    const div = document.createElement("div");
-    const button = document.createElement("button");
-    checkBox.classList.add("todo_check");
-    div.classList.add("todo_text");
-    button.classList.add("todo_delete");
+  // todoItems.forEach((todo) => {
 
-    div.innerText = todo.content;
-    button.innerHTML = '<i class="fa-solid fa-x"></i>';
+  const li = document.createElement("li");
+  li.classList.add("todo_item");
+  const checkBox = document.createElement("div");
+  const div = document.createElement("div");
+  const button = document.createElement("button");
+  checkBox.classList.add("todo_check");
+  div.classList.add("todo_text");
+  button.classList.add("todo_delete");
 
-    //Delete
-    button.addEventListener("click", () => todoDelete(todo.id));
+  div.innerText = newTodo.content;
+  button.innerHTML = '<i class="fa-solid fa-x"></i>';
 
-    // Completed;
-    checkBox.addEventListener("click", (e) => todoCompleted(e, todo.id, todoItems));
+  //Delete
+  button.addEventListener("click", () => todoDelete(newTodo.id));
 
-    if (todo.completed) {
-      checkBox.classList.add("checked");
-      checkBox.innerHTML = '<i class="fa-solid fa-check" id="check"></i>';
-      div.style.textDecoration = "line-through";
-      div.style.color = "gray";
-    }
-    todoList.appendChild(li);
-    li.appendChild(checkBox);
-    li.appendChild(div);
-    li.appendChild(button);
-    li.setAttribute("id", todo.id);
-    div.addEventListener("dblclick", (e) => todoDblclick(e));
-  });
+  // Completed;
+  checkBox.addEventListener("click", (e) => todoCompleted(e, newTodo.id));
+
+  if (newTodo.completed) {
+    checkBox.classList.add("checked");
+    checkBox.innerHTML = '<i class="fa-solid fa-check" id="check"></i>';
+    div.style.textDecoration = "line-through";
+    div.style.color = "gray";
+  }
+  todoList.appendChild(li);
+  li.appendChild(checkBox);
+  li.appendChild(div);
+  li.appendChild(button);
+  li.setAttribute("id", newTodo.id);
+  div.addEventListener("dblclick", (e) => todoDblclick(e));
+  // });
 };
 
 // Create
@@ -176,17 +201,22 @@ function todoSubmit(e) {
   // const todoId = todos[length].id;
   // 마지막 요소의 id를 찾아!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // 너때문에 이렇게 오래 걸렸잫아 너는 블로그에 올릴꺼야 이 나쁜놈아
-
+  let todoObj = {};
   if (length > 1) {
     const todoId = todos[length].id;
-    const todoObj = { content: todoValue, id: todoId + 1, completed: false, year: todoYear, month: todoMonth, day: todoDay };
+    todoObj = { content: todoValue, id: todoId + 1, completed: false, year: todoYear, month: todoMonth, day: todoDay };
     todos.push(todoObj);
+    // paintTodos(todoObj);
   } else {
     const number = id++;
-    const todoObj = { content: todoValue, id: number, completed: false, year: todoYear, month: todoMonth, day: todoDay };
+    todoObj = { content: todoValue, id: number, completed: false, year: todoYear, month: todoMonth, day: todoDay };
     todos.push(todoObj);
+    // paintTodos(todoObj);
   }
-  paintTodos();
+  // const parseTodo = JSON.parse(todos);-
+  // todos = parseTodo;
+  console.log("todos", todos);
+  paintTodos(todoObj);
   saveTodo();
 }
 
@@ -197,8 +227,8 @@ const savedTodo = localStorage.getItem(TODOS);
 if (savedTodo !== null) {
   const parsedTodo = JSON.parse(savedTodo);
   todos = parsedTodo;
-  // parsedTodo.forEach(paintTodos);
-  paintTodos();
+  parsedTodo.forEach(paintTodos);
+  // paintTodos();
 }
 
 export { paintTodos, dayTodo };
