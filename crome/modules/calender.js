@@ -142,7 +142,7 @@ function renderCalender() {
     // 1. pDay 배열로 받기
     // const pDay = document.querySelectorAll(".date");
     if (i <= prevDay || nextDate + prevDay < i) {
-      days.innerHTML += `<div class="day date other" id=${day}><span>${day}<span></div>`;
+      days.innerHTML += `<div class="day date other" id=other${day}><span>${day}<span></div>`;
       // 1. 조건에 맞는 애를 class add시키기
       // pDay.classList.add("today");
       // console.log("i", i);

@@ -20,10 +20,8 @@ let id = 0;
 // todos = JSON.parse(localStorage.getItem(TODOS));
 
 function saveTodo() {
-  // if (newTodos) {
-  //   console.log("newTodos", newTodos);
-  //   todos = { ...todos, content: newTodos.content, completed: newTodos.completeds };
-  // }
+  console.log("newTodos", newTodos);
+  const updateTodo = { ...todos, ...newTodos };
   localStorage.setItem(TODOS, JSON.stringify(todos));
 }
 
@@ -31,7 +29,7 @@ function todoDelete(todoId) {
   const _todos = todos.filter((todo) => {
     return todo.id !== todoId;
   });
-  todos = _todos;
+  newTodos = _todos;
   // paintTodos(todos);
   // todos.forEach(paintTodos);
   paintTodo(todos);
@@ -206,15 +204,11 @@ function todoSubmit(e) {
     const todoId = todos[length].id;
     todoObj = { content: todoValue, id: todoId + 1, completed: false, year: todoYear, month: todoMonth, day: todoDay };
     todos.push(todoObj);
-    // paintTodos(todoObj);
   } else {
     const number = id++;
     todoObj = { content: todoValue, id: number, completed: false, year: todoYear, month: todoMonth, day: todoDay };
     todos.push(todoObj);
-    // paintTodos(todoObj);
   }
-  // const parseTodo = JSON.parse(todos);-
-  // todos = parseTodo;
   console.log("todos", todos);
   paintTodos(todoObj);
   saveTodo();
@@ -223,12 +217,11 @@ function todoSubmit(e) {
 todo.addEventListener("submit", todoSubmit);
 
 const savedTodo = localStorage.getItem(TODOS);
-
 if (savedTodo !== null) {
   const parsedTodo = JSON.parse(savedTodo);
+  console.log("parsedTodo", parsedTodo);
   todos = parsedTodo;
   parsedTodo.forEach(paintTodos);
-  // paintTodos();
 }
 
 export { paintTodos, dayTodo };
