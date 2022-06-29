@@ -19,9 +19,13 @@ let id = 0;
 
 // todos = JSON.parse(localStorage.getItem(TODOS));
 
-function saveTodo() {
+function saveTodo(newTodo) {
+  console.log("newTodo", newTodo);
   console.log("newTodos", newTodos);
-  const updateTodo = { ...todos, ...newTodos };
+  const updateTodo = { ...todos, content: newTodo.content, completed: newTodo.completed };
+  console.log("updateTodo", updateTodo);
+  // console.log("newTodo", newTodo[newTodo].content);
+  // todos = { ...todos, ...newTodos, completed: newTodo.completed, content: newTodo.content };
   localStorage.setItem(TODOS, JSON.stringify(todos));
 }
 
@@ -78,7 +82,7 @@ function todoCompleted(e, todoId) {
   // console.log("todoItems", todoItems);
   newTodos = _todos;
   paintTodo(newTodos);
-  // saveTodo();
+  saveTodo(newTodos);
 }
 
 function paintTodo(newTodos) {
@@ -95,7 +99,7 @@ function paintTodo(newTodos) {
   // todos = [...todos, newTodos];
   // console.log("todos", todos);
   newTodos.forEach(paintTodos);
-  saveTodo();
+  // saveTodo();
 }
 // 클릭한 todoList를 함수의 매개변수로 넘겨주기
 
@@ -211,16 +215,19 @@ function todoSubmit(e) {
   }
   console.log("todos", todos);
   paintTodos(todoObj);
-  saveTodo();
+  saveTodo(todoObj);
 }
 
 todo.addEventListener("submit", todoSubmit);
 
 const savedTodo = localStorage.getItem(TODOS);
+console.log("savedTodo", savedTodo);
 if (savedTodo !== null) {
   const parsedTodo = JSON.parse(savedTodo);
   console.log("parsedTodo", parsedTodo);
   todos = parsedTodo;
+  console.log("todos", todos);
+  console.log("newtodos", newTodos);
   parsedTodo.forEach(paintTodos);
 }
 
