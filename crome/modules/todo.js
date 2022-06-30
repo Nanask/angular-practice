@@ -8,7 +8,7 @@ const todoList = document.querySelector(".todo_list");
 const TODOS = "todos";
 
 let todos = [];
-let newTodos = [];
+// let todos = [];
 let id = 0;
 
 // todo 작성 날짜와 시간 넣기
@@ -23,35 +23,35 @@ function saveTodo(todoId) {
   // console.log("newTodo", newTodo);
   // console.log("newTodo", newTodo);
   // console.log("newTodo", newTodo.id);
-  console.log("todos", todos);
-  console.log("todoId", todoId);
+  // console.log("todos", todos);
+  // console.log("todoId", todoId);
 
   // const updateTodo = [...todos];
-  // const updateTodo = newTodos.filter((todo) => {
+  // const updateTodo = todos.filter((todo) => {
   //   // return todo.id == todos.id ? { ...todos, completed: todo.completed, content: todo.content } : todos;
   //   // console.log("todo", todo);
   //   return todo.id == todoId;
   // });
-  const updateTodo = todos.map((todo) => {
-    newTodos.filter((newTodo) => {
-      console.log("newtodo", newTodo);
-      return newTodo.id == todo.id;
-    });
-    console.log("todo", todo);
-    return todo.id == todoId ? { ...todo, completed: todo.completed, content: todo.content } : todo;
-  });
-  // if (todoId == newTodo.id) {
-  //   const updateTodo = { ...todos, content: newTodo.content, completed: newTodo.completed };
+  // const updateTodo = todos.map((todo) => {
+  //   // todos.filter((newTodo) => {
+  //   //   console.log("newtodo", newTodo);
+  //   //   return newTodo.id == todo.id;
+  //   // });
+  //   // console.log("todo", todo);
+  //   return todo.id == todoId ? { ...todo, completed: todo.completed, content: todo.content } : todo;
+  // });
+  // if (todoId == todos[0].id) {
+  //   const updateTodo = { ...todos, content: todos.content, completed: todos.completed };
   //   console.log("updateTodo", updateTodo);
   // }
-  // todos의 map을 돌려서 그 안에 newTodos를 filter로 돌려서 id가 일치하는 값을 추출해서 넣어주기?
+  // // todos의 map을 돌려서 그 안에 todos를 filter로 돌려서 id가 일치하는 값을 추출해서 넣어주기?
   // console.log("updateTodo.completed", updateTodo[0].completed);
   // console.log("updateTodo.content", updateTodo[0].content);
   // const updateTodo = todos.map((todo) => {
   // console.log("updateTodo.completed", updateTodo.completed);
   // console.log("updateTodo.content", updateTodo.content);
   // return todoId == todo.id ? { ...todo, completed: updateTodo[0].completed, content: updateTodo[0].content } : todo;
-  // newTodos.filter((newTodo) => {
+  // todos.filter((newTodo) => {
   //   return newTodo.id == todo.id ? { ...todo, completed: newTodo.completed, content: newTodo.content } : todo;
   // });
   // });
@@ -60,12 +60,12 @@ function saveTodo(todoId) {
   //   updateTodo = { ...todos, completed: updateTodo.completed, content: updateTodo.content };
   // }
   // if(todoId == updateTodo.id) {
-  //   const update = {...todo, completed: newTodos.completed, content: newTodos.content}
+  //   const update = {...todo, completed: todos.completed, content: todos.content}
   // }
 
-  console.log("updateTodo", updateTodo);
+  // console.log("updateTodo", updateTodo);
   // console.log("newTodo", newTodo[newTodo].content);
-  // todos = { ...todos, ...newTodos, completed: newTodo.completed, content: newTodo.content };
+  // todos = { ...todos, ...todos, completed: newTodo.completed, content: newTodo.content };
   localStorage.setItem(TODOS, JSON.stringify(todos));
 }
 
@@ -73,7 +73,7 @@ function todoDelete(todoId) {
   const _todos = todos.filter((todo) => {
     return todo.id !== todoId;
   });
-  newTodos = _todos;
+  todos = _todos;
   // paintTodos(todos);
   // todos.forEach(paintTodos);
   paintTodo(todos);
@@ -87,11 +87,11 @@ function todoUpdate(e, todoId) {
     const _todos = todos.map((todo) => {
       return todo.id == todoId ? { ...todo, content: value } : todo;
     });
-    newTodos = _todos;
+    todos = _todos;
     console.log("todos", todos);
     // paintTodos(todos);
     // _todos.forEach(paintTodos);
-    paintTodo(newTodos);
+    paintTodo(todos);
     // saveTodo();
   }
 }
@@ -111,8 +111,8 @@ function todoDblclick(e) {
 
 // 완료표시
 function todoCompleted(e, todoId) {
-  // console.log("newTodos", newTodos);
-  const _todos = newTodos.map((todo) => {
+  // console.log("todos", todos);
+  const _todos = todos.map((todo) => {
     return todo.id == todoId ? { ...todo, completed: !todo.completed } : todo;
   });
 
@@ -120,25 +120,25 @@ function todoCompleted(e, todoId) {
   // todos = [..._todos];
   // console.log("_todos", _todos);
   // console.log("todoItems", todoItems);1
-  newTodos = _todos;
-  paintTodo(newTodos);
+  todos = _todos;
+  paintTodo(todos);
   saveTodo(todoId);
 }
 
-function paintTodo(newTodos) {
-  console.log("newTodos", newTodos);
+function paintTodo(todos) {
+  console.log("todos", todos);
   console.log("todos", todos);
   todoList.innerHTML = null;
   // todos.forEach((todo) => {
   //   return paintTodos(todo);
   // });
-  // if (todos.id == newTodos.id) {
+  // if (todos.id == todos.id) {
   //   console.log("일치하는값?");
   //   todos = {...}
   // }
-  // todos = [...todos, newTodos];
+  // todos = [...todos, todos];
   // console.log("todos", todos);
-  newTodos.forEach(paintTodos);
+  todos.forEach(paintTodos);
   // saveTodo();
 }
 // 클릭한 todoList를 함수의 매개변수로 넘겨주기
@@ -162,13 +162,13 @@ const dayTodo = function (year, month, day) {
     }
     // return day == todo.day || month == todo.month || (year == todo.year) !== todo;
   });
-  newTodos = _todos;
-  console.log("todos 캘린더 클릭값", newTodos);
+  todos = _todos;
+  console.log("todos 캘린더 클릭값", todos);
   // } else {
   // console.log("todos 캘린더 클릭값 else", todos);
   // }
   // paintTodos(_todos);
-  newTodos.forEach(paintTodos);
+  todos.forEach(paintTodos);
 };
 
 // todoItem1은 dayTodo에서 보내준 매개변수값
@@ -267,7 +267,7 @@ if (savedTodo !== null) {
   console.log("parsedTodo", parsedTodo);
   todos = parsedTodo;
   console.log("todos", todos);
-  console.log("newtodos", newTodos);
+  console.log("todos", todos);
   parsedTodo.forEach(paintTodos);
 }
 
