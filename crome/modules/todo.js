@@ -19,10 +19,50 @@ let id = 0;
 
 // todos = JSON.parse(localStorage.getItem(TODOS));
 
-function saveTodo(newTodo) {
-  console.log("newTodo", newTodo);
-  console.log("newTodos", newTodos);
-  const updateTodo = { ...todos, content: newTodo.content, completed: newTodo.completed };
+function saveTodo(todoId) {
+  // console.log("newTodo", newTodo);
+  // console.log("newTodo", newTodo);
+  // console.log("newTodo", newTodo.id);
+  console.log("todos", todos);
+  console.log("todoId", todoId);
+
+  // const updateTodo = [...todos];
+  // const updateTodo = newTodos.filter((todo) => {
+  //   // return todo.id == todos.id ? { ...todos, completed: todo.completed, content: todo.content } : todos;
+  //   // console.log("todo", todo);
+  //   return todo.id == todoId;
+  // });
+  const updateTodo = todos.map((todo) => {
+    newTodos.filter((newTodo) => {
+      console.log("newtodo", newTodo);
+      return newTodo.id == todo.id;
+    });
+    console.log("todo", todo);
+    return todo.id == todoId ? { ...todo, completed: todo.completed, content: todo.content } : todo;
+  });
+  // if (todoId == newTodo.id) {
+  //   const updateTodo = { ...todos, content: newTodo.content, completed: newTodo.completed };
+  //   console.log("updateTodo", updateTodo);
+  // }
+  // todos의 map을 돌려서 그 안에 newTodos를 filter로 돌려서 id가 일치하는 값을 추출해서 넣어주기?
+  // console.log("updateTodo.completed", updateTodo[0].completed);
+  // console.log("updateTodo.content", updateTodo[0].content);
+  // const updateTodo = todos.map((todo) => {
+  // console.log("updateTodo.completed", updateTodo.completed);
+  // console.log("updateTodo.content", updateTodo.content);
+  // return todoId == todo.id ? { ...todo, completed: updateTodo[0].completed, content: updateTodo[0].content } : todo;
+  // newTodos.filter((newTodo) => {
+  //   return newTodo.id == todo.id ? { ...todo, completed: newTodo.completed, content: newTodo.content } : todo;
+  // });
+  // });
+  // console.log("update", update);
+  // if (todoId == updateTodo.id) {
+  //   updateTodo = { ...todos, completed: updateTodo.completed, content: updateTodo.content };
+  // }
+  // if(todoId == updateTodo.id) {
+  //   const update = {...todo, completed: newTodos.completed, content: newTodos.content}
+  // }
+
   console.log("updateTodo", updateTodo);
   // console.log("newTodo", newTodo[newTodo].content);
   // todos = { ...todos, ...newTodos, completed: newTodo.completed, content: newTodo.content };
@@ -71,18 +111,18 @@ function todoDblclick(e) {
 
 // 완료표시
 function todoCompleted(e, todoId) {
-  // console.log("todoItems", todoItems);
+  // console.log("newTodos", newTodos);
   const _todos = newTodos.map((todo) => {
     return todo.id == todoId ? { ...todo, completed: !todo.completed } : todo;
   });
 
   // console.log("todos", todos);
   // todos = [..._todos];
-  console.log("_todos", _todos);
-  // console.log("todoItems", todoItems);
+  // console.log("_todos", _todos);
+  // console.log("todoItems", todoItems);1
   newTodos = _todos;
   paintTodo(newTodos);
-  saveTodo(newTodos);
+  saveTodo(todoId);
 }
 
 function paintTodo(newTodos) {
