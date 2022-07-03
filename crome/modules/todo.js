@@ -19,53 +19,7 @@ let id = 0;
 
 // todos = JSON.parse(localStorage.getItem(TODOS));
 
-function saveTodo(todoId) {
-  // console.log("newTodo", newTodo);
-  // console.log("newTodo", newTodo);
-  // console.log("newTodo", newTodo.id);
-  // console.log("todos", todos);
-  // console.log("todoId", todoId);
-
-  // const updateTodo = [...todos];
-  // const updateTodo = todos.filter((todo) => {
-  //   // return todo.id == todos.id ? { ...todos, completed: todo.completed, content: todo.content } : todos;
-  //   // console.log("todo", todo);
-  //   return todo.id == todoId;
-  // });
-  // const updateTodo = todos.map((todo) => {
-  //   // todos.filter((newTodo) => {
-  //   //   console.log("newtodo", newTodo);
-  //   //   return newTodo.id == todo.id;
-  //   // });
-  //   // console.log("todo", todo);
-  //   return todo.id == todoId ? { ...todo, completed: todo.completed, content: todo.content } : todo;
-  // });
-  // if (todoId == todos[0].id) {
-  //   const updateTodo = { ...todos, content: todos.content, completed: todos.completed };
-  //   console.log("updateTodo", updateTodo);
-  // }
-  // // todos의 map을 돌려서 그 안에 todos를 filter로 돌려서 id가 일치하는 값을 추출해서 넣어주기?
-  // console.log("updateTodo.completed", updateTodo[0].completed);
-  // console.log("updateTodo.content", updateTodo[0].content);
-  // const updateTodo = todos.map((todo) => {
-  // console.log("updateTodo.completed", updateTodo.completed);
-  // console.log("updateTodo.content", updateTodo.content);
-  // return todoId == todo.id ? { ...todo, completed: updateTodo[0].completed, content: updateTodo[0].content } : todo;
-  // todos.filter((newTodo) => {
-  //   return newTodo.id == todo.id ? { ...todo, completed: newTodo.completed, content: newTodo.content } : todo;
-  // });
-  // });
-  // console.log("update", update);
-  // if (todoId == updateTodo.id) {
-  //   updateTodo = { ...todos, completed: updateTodo.completed, content: updateTodo.content };
-  // }
-  // if(todoId == updateTodo.id) {
-  //   const update = {...todo, completed: todos.completed, content: todos.content}
-  // }
-
-  // console.log("updateTodo", updateTodo);
-  // console.log("newTodo", newTodo[newTodo].content);
-  // todos = { ...todos, ...todos, completed: newTodo.completed, content: newTodo.content };
+function saveTodo() {
   localStorage.setItem(TODOS, JSON.stringify(todos));
 }
 
@@ -73,9 +27,8 @@ function todoDelete(todoId) {
   const _todos = todos.filter((todo) => {
     return todo.id !== todoId;
   });
+  console.log("_todos", _todos);
   todos = _todos;
-  // paintTodos(todos);
-  // todos.forEach(paintTodos);
   paintTodo(todos);
   // saveTodo();
 }
@@ -98,6 +51,7 @@ function todoUpdate(e, todoId) {
 
 function todoDblclick(e) {
   const text = e.target;
+  console.log("text", text);
   const li = text.parentElement;
   console.log("li", li);
   li.innerHTML = null;
@@ -122,7 +76,7 @@ function todoCompleted(e, todoId) {
   // console.log("todoItems", todoItems);1
   todos = _todos;
   paintTodo(todos);
-  saveTodo(todoId);
+  // saveTodo();
 }
 
 function paintTodo(todos) {
@@ -139,7 +93,7 @@ function paintTodo(todos) {
   // todos = [...todos, todos];
   // console.log("todos", todos);
   todos.forEach(paintTodos);
-  // saveTodo();
+  saveTodo();
 }
 // 클릭한 todoList를 함수의 매개변수로 넘겨주기
 
@@ -254,7 +208,8 @@ function todoSubmit(e) {
   // 마지막 요소의 id를 찾아!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // 너때문에 이렇게 오래 걸렸잫아 너는 블로그에 올릴꺼야 이 나쁜놈아
   let todoObj = {};
-  if (length > 1) {
+
+  if (length >= 0) {
     const todoId = todos[length].id;
     todoObj = { content: todoValue, id: todoId + 1, completed: false, year: todoYear, month: todoMonth, day: todoDay, display: true };
     todos.push(todoObj);
