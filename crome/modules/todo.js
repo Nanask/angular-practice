@@ -8,7 +8,6 @@ const todoList = document.querySelector(".todo_list");
 const TODOS = "todos";
 
 let todos = [];
-// let todos = [];
 let id = 0;
 
 // todo 작성 날짜와 시간 넣기
@@ -119,10 +118,10 @@ const dayTodo = function (year, month, day) {
   todos.map((todo) => {
     if (todo.month == month + 1 && todo.day == day && todo.year == year) {
       todo.display = true;
-      console.log("todo.display true", todo.display);
+      // console.log("todo.display true", todo.display);
     } else {
       todo.display = false;
-      console.log("todo.display false", todo.display);
+      // console.log("todo.display false", todo.display);
     }
   });
   // todos = _todos;

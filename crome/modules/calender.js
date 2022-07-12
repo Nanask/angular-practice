@@ -28,10 +28,6 @@ function calenderClick(e) {
   const dayText = target.innerText;
   console.log("target", target);
   console.log("dayText", dayText);
-  // paintTodos에 클릭한 년도,월,일자를 매개변수로 넘겨주기
-  // 클릭한 년도,월,일자와 같은 투두리스트를 보여주기
-  // paintTodos(date.getFullYear(), date.getMonth(), dayText);
-  // paintTodos(date.getFullYear(), date.getMonth(), dayText);
 
   // 클릭된 값에 클래스를 주기전에
   // targetParentNode.classList.remove("clickDay");
@@ -41,18 +37,21 @@ function calenderClick(e) {
 
   // 클래스에 clickDay가 있으면 지우고 새로운 버튼에 주기
   console.log("e.target.id", targetParentNode.id);
-  console.log("click 되어있는 날짜", document.querySelector(".clickDay"));
-  if (document.querySelector(".clickDay")) {
-    targetParentNode.classList.remove("clickDay");
-  } else {
-    console.log("target else");
-    targetParentNode.classList.add("clickDay");
-  }
+  // console.log("click 되어있는 날짜", document.querySelector(".clickDay"));
+  // if (document.querySelector(".clickDay")) {
+  //   targetParentNode.classList.remove("clickDay");
+  // } else {
+  //   console.log("target else");
+  //   targetParentNode.classList.add("clickDay");
+  // }
 
-  // dates.filter((day) => {
-  //   console.log("targetParentNode.id, day", targetParentNode, day);
-  //   targetParentNode !== day ? targetParentNode.classList.add("clickDay") : targetParentNode.classList.remove("clickDay");
-  // });
+  const clickDay = dates.find((day) => {
+    // console.log("targetParentNode.id, day", targetParentNode.id, day);
+    // console.log("dayText", dayText);
+    // return dayText == day ? targetParentNode.classList.add("clickDay") : targetParentNode.classList.remove("clickDay");
+    return targetParentNode.id == day ? targetParentNode.classList.add("clickDay") : targetParentNode.classList.remove("clickDay");
+  });
+  console.log("clickDay", clickDay);
 
   dayTodo(date.getFullYear(), date.getMonth(), dayText);
 }
