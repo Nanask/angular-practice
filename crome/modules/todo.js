@@ -212,6 +212,7 @@ function todoSubmit(e) {
     const todoId = todos[length].id;
     todoObj = { content: todoValue, id: todoId + 1, completed: false, year: todoYear, month: todoMonth, day: todoDay, display: true };
     todos.push(todoObj);
+    console.log("todos 215", todos);
   } else {
     const number = id++;
     todoObj = { content: todoValue, id: number, completed: false, year: todoYear, month: todoMonth, day: todoDay, display: true };

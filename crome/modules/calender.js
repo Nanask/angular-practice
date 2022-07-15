@@ -13,6 +13,11 @@ const days = document.getElementById("days");
 
 let dates = [];
 
+// let dayObj = { days: day, checked: false };
+// dates.push(dayObj);
+
+console.log("dates", dates);
+
 // console.log("year", year);
 // console.log("month", month);
 // console.log("day", day);
@@ -45,13 +50,30 @@ function calenderClick(e) {
   //   targetParentNode.classList.add("clickDay");
   // }
 
-  const clickDay = dates.find((day) => {
-    // console.log("targetParentNode.id, day", targetParentNode.id, day);
-    // console.log("dayText", dayText);
-    // return dayText == day ? targetParentNode.classList.add("clickDay") : targetParentNode.classList.remove("clickDay");
-    return targetParentNode.id == day ? targetParentNode.classList.add("clickDay") : targetParentNode.classList.remove("clickDay");
+  // let dayObj = {};
+  // dayObj = { checkedDay: false };
+  // dates.push(dayObj);
+  // console.log("dates", dates);
+
+  // const clickDay = dates.find((day) => {
+  //   // console.log("targetParentNode.id, day", targetParentNode.id, day);
+  //   // console.log("dayText", dayText);
+  //   // return dayText == day ? targetParentNode.classList.add("clickDay") : targetParentNode.classList.remove("clickDay");
+  //   // return targetParentNode.id == day ? targetParentNode.classList.add("clickDay") : targetParentNode.classList.remove("clickDay");
+  //   console.log(checkedDay);
+  // });
+  // console.log("clickDay", clickDay);
+
+  dates.map((day) => {
+    if (day.days == dayText) {
+      day.checked = true;
+      targetParentNode.classList.add("clickDay");
+      console.log("day", day);
+    } else {
+      // day.checked = false;
+      // targetParentNode.classList.remove("clickDay");
+    }
   });
-  console.log("clickDay", clickDay);
 
   dayTodo(date.getFullYear(), date.getMonth(), dayText);
 }
@@ -72,7 +94,9 @@ function renderCalender() {
   // next나 prev로 넘어갈때 초기화
   dates.length = 0;
   days.innerHTML = null;
-  console.log("dates", dates);
+  // console.log("dates", dates);
+
+  // let dayObj = { day: i, checkDay: false };
 
   yearMonth.innerText = `${date.getFullYear()}년 ${date.getMonth() + 1}월`;
 
@@ -93,7 +117,9 @@ function renderCalender() {
   // [32]
 
   for (let i = prevDate - prevDay; i <= prevDate; i++) {
-    dates.push(i);
+    dates.push({ days: i, checked: false });
+    // [...dates, { day: i }];
+    // console.log("dates", dates);
   }
 
   // 캘린더는 배열로 돌죠
@@ -112,11 +138,13 @@ function renderCalender() {
   console.log("nextDay", nextDay); // 목요일 , 4
 
   for (let i = 1; i <= nextDate; i++) {
-    dates.push(i);
+    // dates.push(i);
+    dates.push({ days: i, checked: false });
   }
 
   for (let i = 1; i <= 6 - nextDay; i++) {
-    dates.push(i);
+    // dates.push(i);
+    dates.push({ days: i, checked: false });
   }
 
   const nextButton = document.querySelector(".next_month");
@@ -130,7 +158,7 @@ function renderCalender() {
 
   // 다음달
   console.log("dates[nextDate]", dates[nextDay]);
-
+  // console.log("day.day", dates);
   dates.forEach((day, i) => {
     // i = prevDay
     // i = dates ----- dates마지막
@@ -140,14 +168,15 @@ function renderCalender() {
 
     // 1. pDay 배열로 받기
     // const pDay = document.querySelectorAll(".date");
+    // console.log("day.day", day.days);
     if (i <= prevDay || nextDate + prevDay < i) {
-      days.innerHTML += `<div class="day date other" id=other${day}><span>${day}<span></div>`;
+      days.innerHTML += `<div class="day other" id=other${day.days}><span>${day.days}<span></div>`;
       // 1. 조건에 맞는 애를 class add시키기
       // pDay.classList.add("today");
       // console.log("i", i);
       // pDay[i].classList.add("today");
     } else {
-      days.innerHTML += `<div class="day date" id=${day}><span>${day}<span></div>`;
+      days.innerHTML += `<div class="day" id=${day.days}><span>${day.days}<span></div>`;
     }
   });
   // for(let i = 0 ; i <= dates.length ; i++) {

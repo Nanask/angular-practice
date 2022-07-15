@@ -167,7 +167,8 @@ li > div {
   justify-content: center;
 }
 
-.day {
+.day,
+.day_of_the_week {
   width: 14%;
   padding: 5px 0 5px 0;
 }
