@@ -54,3 +54,5 @@
 - 6/30 캘린더 날짜에 일치하는 todoList에서 오류
 
 * newTodo라는 배열을 새로 만드는 것이 아니라 todoObj에 display 요소를 추가하여 boolen으로 분리
+
+- clickDay 에서 false , true값으로 변경이 안됨

@@ -63,18 +63,31 @@ function calenderClick(e) {
   //   console.log(checkedDay);
   // });
   // console.log("clickDay", clickDay);
+  // console.log("dates.checkd", dates.checked);
+  // if (dates.days == dayText) {
+  //   // dates.checked = true;
+  //   console.log("dates.checkd", dates.checked);
+  //   targetParentNode.classList.add("clickDay");
+  //   console.log("day", day);
+  // }
 
   dates.map((day) => {
     if (day.days == dayText) {
       day.checked = true;
       targetParentNode.classList.add("clickDay");
       console.log("day", day);
-    } else {
+    }
+    if (day.checked) {
+      // console.log("day.checked", day.checked);
       // day.checked = false;
+      // console.log("day.checked", day.checked);
+      day.checked == false ? { ...day, checked: day.checked } : day;
+      console.log("day.checked", day.checked);
+      // console.log("target node", targetParentNode);
       // targetParentNode.classList.remove("clickDay");
+      console.log("ddd");
     }
   });
-
   dayTodo(date.getFullYear(), date.getMonth(), dayText);
 }
 
